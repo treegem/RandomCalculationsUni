@@ -1,13 +1,14 @@
-import os
-
 import matplotlib.pyplot as plt
 import numpy as np
 from scipy.constants import physical_constants
 
+from utility.image_utility import serif_font
+from utility.storage_utility import save_figure
 from utility.tum_jet import tum_colors
 
 
 def main():
+
     b = np.linspace(start=0, stop=0.01, num=500)
     splus = np.zeros_like(b)
     sminus = np.zeros_like(b)
@@ -20,10 +21,9 @@ def main():
     x0, x1, y0, y1 = initialize_figure(b, sminus, splus)
     y1 += 10
 
+    serif_font()
     plot_resonance_condition(b, splus, x0, x1, splitting=200)
-
     plot_energy_shift(b, sminus, splus)
-
     format_plot(x0, x1, y0, y1)
 
     save_figure(path='//file/e24/Projects/ReinhardLab/Georg/Abstracts Anträge/'
@@ -34,14 +34,15 @@ def format_plot(x0, x1, y0, y1):
     plt.ylim((y0, y1))
     plt.xlim((x0, x1))
     plt.legend()
-    plt.xlabel(r'$B_0$ (G)')
-    plt.ylabel('Energy shift (MHz)')
+    serif_font = {'fontname': 'serif'}
+    plt.xlabel(r'$B_0$ (G)', **serif_font)
+    plt.ylabel('Energy shift (MHz)', **serif_font)
     plt.tight_layout()
 
 
 def plot_energy_shift(b, sminus, splus):
-    plt.plot(b, splus, color=tum_colors[0][1], label=r'$m_S =  $' + ' 1/2')
-    plt.plot(b, sminus, color=tum_colors[5][1], label=r'$m_S = -1/2$')
+    plt.plot(b, splus, color=tum_colors[0][1], label=r'$m\mathregular{_S} = 1/2$')
+    plt.plot(b, sminus, color=tum_colors[5][1], label=r'$m\mathregular{_S} = -1/2$')
 
 
 def plot_resonance_condition(b, splus, x0, x1, splitting=100):
@@ -79,13 +80,6 @@ def compute_energy_shift(b, sminus, splus):
     for i, b_val in enumerate(b):
         splus[i] = g * mu_b * mz * b_val
         sminus[i] = g * mu_b * (-mz) * b_val
-
-
-def save_figure(path=None):
-    if path is None:
-        par_folder = os.path.dirname(__file__)
-        path = os.path.join(par_folder, 'zeeman_splitting.png')
-    plt.savefig(path, dpi=200)
 
 
 def hertz_to_megahertz(sminus, splus):

@@ -159,3 +159,4 @@ fabric.properties
 .idea/vcs.xml
 .idea/RandomCalculationsUni.iml
 /venv/
+/temp/
