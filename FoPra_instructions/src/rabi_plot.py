@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 from PIL import Image
 
-from utility.image_utility import serif_font
+from utility.image_utility import serif_font, merge_images_vertically
 from utility.path_utility import TEMP_PATH
 from utility.storage_utility import save_figure
 from utility.tum_jet import tum_colors
@@ -13,6 +13,20 @@ from utility.tum_jet import tum_colors
 def main():
     rabi_fast, rabi_slow, ts = compute_rabi_graphs()
 
+    create_rabi_mes_plot(rabi_fast, rabi_slow, ts)
+
+    latex_image_path = '//file/e24/Projects/ReinhardLab/Georg/Abstracts Anträge/F-Praktikum/Latexnew/images'
+    image1 = os.path.join(latex_image_path, 'rabi_sequence.png')
+    image2 = os.path.join(TEMP_PATH, 'figure.png')
+    image_path_list = [image1, image2]
+    images = list(map(Image.open, image_path_list))
+
+    resulting_image = merge_images_vertically(images)
+
+    resulting_image.save(os.path.join(latex_image_path, 'rabi.png'))
+
+
+def create_rabi_mes_plot(rabi_fast, rabi_slow, ts):
     serif_font()
     plt.figure(figsize=(19 / 2.54, 10 / 2.54))
     plt.plot(ts, rabi_slow, color=tum_colors[0][1], label=r'$B_1$')
@@ -24,25 +38,6 @@ def main():
     plt.legend()
     plt.tight_layout()
     save_figure()
-
-    image2 = os.path.join(TEMP_PATH, 'figure.png')
-    latex_image_path = '//file/e24/Projects/ReinhardLab/Georg/Abstracts Anträge/F-Praktikum/Latexnew/images'
-    image1 = os.path.join(latex_image_path, 'rabi_sequence.png')
-    image_list = [image1, image2]
-    images = list(map(Image.open, image_list))
-    widths, heights = zip(*(i.size for i in images))
-
-    max_width = max(widths)
-    total_height = sum(heights)
-
-    resulting_image = Image.new('RGB', (max_width, total_height))
-
-    y_offset = 0
-    for im in images:
-        resulting_image.paste(im, (0, y_offset))
-        y_offset += im.size[1]
-
-    resulting_image.save(os.path.join(latex_image_path, 'rabi.png'))
 
 
 def compute_rabi_graphs():
