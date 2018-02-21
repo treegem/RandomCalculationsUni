@@ -6,18 +6,21 @@ Created on Tue Apr 25 13:41:35 2017
 """
 
 import glob
+import os
 import random
 
 import matplotlib.pylab as pylab
 import numpy
-import tum_jet
+
+import Diamondscomparision.tum_jet as tum_jet
 
 
 def get_txt_files_without_oxidation():
     global files, file
     # get all files ending with txt info 'files'
     files = []
-    for file in glob.glob("*.txt"):
+    directory = '//file/e24/Projects/ReinhardLab/Georg/Documentation/170612_4_images_paper/Diamondscomparision/'
+    for file in glob.glob(directory + "*.txt"):
         if file[0] != 'n':
             files.append(file.split('.')[0])
 
@@ -28,7 +31,7 @@ def reorder_files():
     files = [files[i] for i in new_order]
 
 
-def extract_t2_and_average():
+def extract_t2_and_average(files):
     global t2s, avgs, dia, t2
     t2s = []
     avgs = []
@@ -41,9 +44,12 @@ def extract_t2_and_average():
         t2 *= (t2 < upper_limit)
         t2 *= (t2 > 1.500)
 
-        t2 = numpy.trim_zeros(numpy.sort(t2))
+        t2 = numpy.sort(t2)
+        t2 = numpy.trim_zeros(t2)
 
         t2s.append(t2)
+
+    return t2s, avgs
 
 
 def random_x_values():
@@ -54,9 +60,10 @@ def random_x_values():
         for j, t in enumerate(x):
             x[j] = t + random.uniform(-0.25, 0.25)
         xs.append(x)
+    return xs
 
 
-def rename_without_oxidation():
+def rename_without_oxidation(files):
     global i
     for i, f in enumerate(files):
         if f == '01C':
@@ -81,7 +88,7 @@ def rename_without_oxidation():
             files[i] = 'H1'
 
 
-def box_plot_without_oxidation():
+def box_plot_without_oxidation(files, arialfont={'fontname': 'Arial'}):
     global fig, i, t2, color
     medians_old = []
     maxs_old = []
@@ -123,8 +130,10 @@ def get_txt_files_with_oxidation():
     global nfiles, file
     # get all files ending with txt info 'files' after 520
     nfiles = []
-    for file in glob.glob("*.txt"):
-        if file[0] == 'n':
+    directory = '//file/e24/Projects/ReinhardLab/Georg/Documentation/170612_4_images_paper/Diamondscomparision/'
+    for file in glob.glob(directory + "*.txt"):
+        file_name = os.path.split(file)[-1]
+        if file_name[0] == 'n':
             nfiles.append(file.split('.')[0])
 
 
@@ -205,7 +214,7 @@ if __name__ == '__main__':
 
     get_txt_files_without_oxidation()
     reorder_files()
-    extract_t2_and_average()
+    extract_t2_and_average(files=files)
     random_x_values()
     medians_old = box_plot_without_oxidation()
     rename_without_oxidation()
