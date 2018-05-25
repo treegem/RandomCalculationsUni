@@ -1,7 +1,7 @@
 import numpy as np
 from scipy.optimize import minimize_scalar
 
-from constants import *
+from utility.constants import *
 
 
 def sensitivity_from_t2(t2):
