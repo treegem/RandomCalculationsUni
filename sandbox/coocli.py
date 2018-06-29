@@ -8,7 +8,11 @@ def quantizations_ordered():
                                'Billions': 1e9,
                                'Trillions': 1e12,
                                'Quadrillions': 1e15,
-                               'Quintillions': 1e18}
+                               'Quintillions': 1e18,
+                               'Sextillions': 1e21,
+                               'Septillions': 1e24,
+                               'Octillions': 1e27,
+                               }
     return OrderedDict(sorted(quantization_thresholds.items(), key=lambda k: k[1]))
 
 
@@ -44,6 +48,6 @@ def main():
 
 
 if __name__ == '__main__':
-    income = 6e15
+    income = 2e21 * 6
 
     main()
