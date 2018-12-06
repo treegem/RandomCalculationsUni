@@ -7,6 +7,7 @@ def main():
     t2_s = np.array([4.44e-7, 3.40e-7, 2.56e-7, 2.02e-7, 1.42e-7]) * 1e9
 
     plt.close('all')
+    plt.plot(i_s, t2_s, 'r--')
     plt.plot(i_s, t2_s, '.')
     plt.xlabel('current [mA]')
     plt.ylabel('T_2 (ns)')

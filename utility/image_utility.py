@@ -1,5 +1,5 @@
 from PIL import Image
-from matplotlib import rcParams
+from matplotlib import rcParams, pyplot as plt
 
 
 def serif_font():
@@ -17,3 +17,13 @@ def merge_images_vertically(images):
         resulting_image.paste(im, (0, y_offset))
         y_offset += im.size[1]
     return resulting_image
+
+
+def plot_borderless(array, name):
+    fig = plt.figure(frameon=False)
+    fig.set_size_inches(1, 1)
+    ax = plt.Axes(fig, [0., 0., 1., 1.])
+    ax.set_axis_off()
+    fig.add_axes(ax)
+    ax.imshow(array)
+    fig.savefig('{}.png'.format(name), dpi=500)

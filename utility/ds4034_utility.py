@@ -1,3 +1,5 @@
+import os
+
 import numpy as np
 
 
@@ -7,12 +9,16 @@ def read_bytes_from_file(file_path):
 
 
 def read_file(file_path):
-    with open(file_path, 'r') as f:
-        read_data = f.read()
+    try:
+        with open(file_path, 'r') as f:
+            read_data = f.read()
+    except UnicodeDecodeError:
+        with open(file_path, 'rb') as f:
+            read_data = f.read()
     return read_data
 
 
-def read_nd_from_file(file_path):
+def nd_from_file(file_path):
     b_array = read_bytes_from_file(file_path)
     return np.array(b_array)
 
@@ -50,3 +56,32 @@ def test():
 
 if __name__ == '__main__':
     test()
+
+
+def filter_relevant_files(path):
+    all_files = os.listdir(path)
+    ch1_files = []
+    info_files = []
+    for f in all_files:
+        if 'ch1' in f:
+            ch1_files.append(os.path.join(path, f))
+        elif 'info' in f:
+            info_files.append(os.path.join(path, f))
+    return ch1_files, info_files
+
+
+def sampling_times(data, info_files):
+    if 'ts' not in globals():
+        global ts
+        dt = 1. / get_property(info_files[1], 'sampling_rate')
+        ts = np.arange(0, len(data) * dt, dt)
+        return ts
+    else:
+        return ts
+
+
+def scale_data(data, full_points, info_files, offset, i=1):
+    data = (data - full_points / 2.) / full_points * 2
+    data = data * get_property(info_files[i], 'scale_channel_1') * 4
+    data -= offset
+    return data

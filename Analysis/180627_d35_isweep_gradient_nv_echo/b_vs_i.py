@@ -7,6 +7,7 @@ def main():
     b_s = np.array([15, 25, 35, 40, 68])
 
     plt.close('all')
+    plt.plot(i_s, b_s, 'r--')
     plt.plot(i_s, b_s, '.')
     plt.xlabel('current [mA]')
     plt.ylabel('b (G)')
