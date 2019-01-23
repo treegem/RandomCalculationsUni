@@ -6,11 +6,11 @@ from utility.image_utility import plot_borderless
 
 
 def main():
-    path = '//file/e24/Projects/ReinhardLab/data_setup_nv1/181206_hd_scans_pc/4pics_hd'
+    path = '//file/e24/Projects/ReinhardLab/data_setup_nv1/181206_hd_scans_pc/16pics_hd'
     mat_files = get_mat_filenames(path)
     for mat_file in mat_files:
         mes_data = load_result(path, mat_file)
-        plot_borderless(mes_data, '4pics/{}_borderless.png'.format(mat_file.split('.mat')[0]), vmax=1e6)
+        plot_borderless(mes_data, '16pics/{}_borderless.png'.format(mat_file.split('.mat')[0]), vmax=1e6, dpi=1000)
 
 
 def load_result(dir, mat_file):

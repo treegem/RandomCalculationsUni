@@ -25,6 +25,8 @@ def main():
     plt.legend()
     plt.axes().set_aspect(3)
     fig.savefig('deer_comparison.png', dpi=300, bbox_inches='tight')
+    np.savetxt('data_no_curr.txt', data_no_curr)
+    np.savetxt('data_with_curr.txt', data_with_curr)
 
 
 if __name__ == '__main__':
