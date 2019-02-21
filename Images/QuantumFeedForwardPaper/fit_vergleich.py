@@ -16,14 +16,13 @@ def compose_final(path):
     plt.plot(post_selected_graph, label='post_selected')
     plt.plot(sinus_fit_graph, label='sine fit')
     plt.legend()
-    plt.show()
+    plt.savefig('all_fits.jpg', dpi=300)
 
 
 def main():
     global offset_x, offset_y
     path = '//file/e24/Projects/ReinhardLab/data_setup_nv1/181115_d36_current_echo_20mA/008_rand_curr_selfcalib_20mA'
     taus = np.loadtxt(os.path.join(path, 'taus.txt'))
-    post_selected_plot(path, taus)
 
     zs = np.loadtxt(os.path.join(path, 'zs_mat.txt'))
     zs_x = zs[:, 0::2]
@@ -35,14 +34,61 @@ def main():
     matrix_x = shifted_matrix(zs_x, offset_x)
     matrix_y = shifted_matrix(zs_y, offset_y)
 
-    # sinus_fit(matrix_x, matrix_y, taus)
+    plot_rows(matrix_x, 'x')
+
+    post_selected_plot(path, taus)
+    sinus_fit(matrix_x, matrix_y, taus, offset_x, offset_y)
+
+    # fft_single_phase(matrix_x, 'x')
+    # fft_single_phase(matrix_y, 'y')
 
     compose_final(path)
 
 
-def sinus_fit(matrix_x, matrix_y, taus):
-    sinus_fit_single(matrix_x.T, '_x', [80 / 5, 0.05, 0, 0])
-    sinus_fit_single(matrix_y.T, '_y', [80 / 5, 0.05, np.pi / 2, 0])
+def plot_rows(matrix, phase):
+    for i, row in enumerate(matrix.T):
+        plt.close('all')
+        plt.plot(row)
+        plt.savefig('rows/{}/row_{}.jpg'.format(phase, i), dpi=300)
+
+
+def fft_fit_function_x(t, A):
+    pass
+
+
+def fft_single_phase(matrix, phase):
+    n_rows = matrix.shape[1]
+    ffts = np.zeros(151, dtype=np.cdouble)
+    for i, row in enumerate(matrix.T):
+        # trimmed = np.trim_zeros(row, trim='b')
+        trimmed = row.copy()
+        fft = np.fft.rfft(trimmed)
+        ffts += fft
+        fft_abs = abs(fft)
+        fft[np.where(fft_abs < 1.0)] = 0
+        inverse = np.fft.irfft(fft)
+        fft_abs = abs(fft)
+        freqs = np.fft.rfftfreq(len(trimmed))
+        plt.close('all')
+        plt.plot(freqs, fft_abs)
+        plt.savefig('ffts/{}/fft_{:03}.jpg'.format(phase, i), dpi=300)
+        plt.close('all')
+        plt.plot(inverse)
+        plt.savefig('ffts/{}/inverse_{:03}.jpg'.format(phase, i), dpi=300)
+    plt.close('all')
+    plt.plot(freqs, abs(ffts) / n_rows)
+    plt.savefig('ffts/{}/average.jpg'.format(phase), dpi=300)
+    np.savetxt('ffts/{}/average_real.txt'.format(phase), abs(ffts) / n_rows)
+    inverse_fft = np.fft.irfft(ffts / n_rows)
+    plt.close('all')
+    plt.plot(inverse_fft)
+    plt.savefig('ffts/{}/average_inverse.jpg'.format(phase), dpi=300)
+    np.savetxt('ffts/{}/average_inverse.txt'.format(phase), inverse_fft)
+
+
+def sinus_fit(matrix_x, matrix_y, taus, offset_x, offset_y):
+    sinus_fit_single(matrix_x.T, '_x', [80 / 5, 0.05, 0, 0], offset_x)
+    sinus_fit_single(matrix_y.T, '_y', [80 / 5, 0.05, np.pi / 2, 0], offset_y)
     sinus_fit_average(taus)
 
 
@@ -57,9 +103,10 @@ def sinus_fit_average(taus):
     plt.savefig('sinus_fit.jpg', dpi=300)
 
 
-def sinus_fit_single(matrix, name_add, p0):
+def sinus_fit_single(matrix, name_add, p0, offset):
     n_rows = matrix.shape[0]
     amplitudes = np.zeros(n_rows)
+    offsets = np.zeros(n_rows)
     for i, row in enumerate(matrix):
         if i % 1 == 0:
             print(i)
@@ -68,11 +115,13 @@ def sinus_fit_single(matrix, name_add, p0):
             remove_outliers(trimmed, mini=-0.11, maxi=0.11)
             popt = perform_fit(p0, trimmed, xdata)
             amplitudes[i] = popt[1]
+            offsets[i] = popt[3] + offset
             plt.close('all')
             plt.plot(xdata, trimmed)
             plt.plot(xdata, fit_func(xdata, *popt))
             plt.savefig('fits/end_pulse_x/row_{:03}.jpg'.format(i), dpi=300)
     np.savetxt('amplitudes{}.txt'.format(name_add), amplitudes)
+    np.savetxt('offsets{}.txt'.format(name_add), offsets)
     plt.close('all')
     plt.plot(amplitudes)
     plt.savefig('sinus_fit{}.jpg'.format(name_add), dpi=300)
