@@ -69,7 +69,7 @@ def main():
     plt.ylim(bottom=plt.ylim()[0] - 0.2)
     plt.legend(loc='lower center', ncol=2, frameon=False)
     fig.tight_layout()
-    plt.savefig('echo_reconstruction.jpg', dpi=300)
+    plt.savefig('echo_reconstruction_vector.svg')
 
 
 def zs_to_probability(random_data):

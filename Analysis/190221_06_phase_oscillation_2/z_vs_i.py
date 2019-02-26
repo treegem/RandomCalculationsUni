@@ -14,17 +14,22 @@ def bins_to_avg(bins):
 
 
 def main():
-    path = '//file/e24/Projects/ReinhardLab/data_setup_nv1/190221_d06_phase_oscillation/phase_oscillation_02'
+    path = '//file/e24/Projects/ReinhardLab/data_setup_nv1/190221_d06_phase_oscillation_2/phase_oscillation_001'
 
     bins = np.loadtxt(os.path.join(path, 'bins.txt'))
     i_bins = bins_to_avg(bins)
     zs = np.loadtxt(os.path.join(path, 'zs.txt'))
     for i, entry in enumerate(zs):
-        if entry > 0.955:
-            zs[i] = 0.955
+        maxi = 0.94
+        if entry > maxi:
+            zs[i] = maxi
+    for i, entry in enumerate(zs):
+        mini = 0.915
+        if entry < mini:
+            zs[i] = mini
     plt.close('all')
     plt.plot(i_bins, zs)
-    plt.ylim((0.92, 0.96))
+    plt.ylim((0.91, 0.94))
     plt.savefig('z_vs_i.jpg', dpi=300)
 
     # freqs = np.fft.rfftfreq(len(bins), bins[-1] - bins[-2])

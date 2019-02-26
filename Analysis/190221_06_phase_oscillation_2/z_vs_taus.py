@@ -6,9 +6,9 @@ from scipy.io import loadmat
 
 
 def main():
-    path = '//file/e24/Projects/ReinhardLab/data_setup_nv1/190221_d06_phase_oscillation/phase_oscillation_02'
-    start_index = 16
-    end_index = 2073
+    path = '//file/e24/Projects/ReinhardLab/data_setup_nv1/190221_d06_phase_oscillation_2/phase_oscillation_001'
+    start_index = 0
+    end_index = 2264
 
     taus = np.loadtxt(os.path.join(path, 'taus.txt'))
     zs = np.zeros_like(taus)
@@ -29,7 +29,7 @@ def main():
     freqs = np.fft.rfftfreq(len(taus), taus[-1] - taus[-2])
     ft_zs = np.fft.rfft(zs)
     plt.close('all')
-    plt.plot(freqs[1:], ft_zs[1:])
+    plt.plot(freqs[1:], abs(ft_zs[1:]))
     plt.savefig('z_vs_taus_fft.jpg', dpi=300)
 
 
