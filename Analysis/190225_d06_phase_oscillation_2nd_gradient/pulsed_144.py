@@ -35,6 +35,8 @@ def integrate_currents(path, pulse_form_file):
     n_sweeps = 1000
     data = np.loadtxt(os.path.join(path, pulse_form_file)) / n_sweeps
     window_length = 4096
+    offset = np.average(data[window_length - 100:window_length])
+    data -= offset
     n_windows = int(len(data) / window_length)
     integrated_currents = np.zeros(n_windows)
     for i in range(n_windows):

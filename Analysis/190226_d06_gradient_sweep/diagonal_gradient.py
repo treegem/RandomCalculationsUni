@@ -12,6 +12,9 @@ def main():
     taus = data['taus'][0]
     zs = data['zs']
 
+    np.savetxt('diagonal_gradient/taus.txt', taus)
+    np.savetxt('diagonal_gradient/zs.txt', zs)
+
     fft_and_plots(taus, zs, 'taus')
 
     pulse_form_files = [
@@ -33,6 +36,8 @@ def main():
 
     xs = np.linspace(integrated_currents[0], integrated_currents[-1], 250)
     interp_zs = np.array([np.interp(xs, integrated_currents, zs[0]), np.interp(xs, integrated_currents, zs[1])])
+    np.savetxt('diagonal_gradient/interp_currents.txt', xs)
+    np.savetxt('diagonal_gradient/interp_zs.txt', interp_zs)
 
     fft_and_plots(xs=xs, zs=interp_zs, name='interp_currents')
 
@@ -74,6 +79,8 @@ def fft_and_plots(xs, zs, name):
     plt.close('all')
     plt.plot(freqs[1:], abs(fft_zs[1:]))
     plt.savefig('diagonal_gradient/fft_{}.jpg'.format(name), dpi=300)
+    np.savetxt('diagonal_gradient/fft_{}.txt'.format(name), fft_zs)
+    np.savetxt('diagonal_gradient/freqs_{}.txt'.format(name), freqs)
 
 
 if __name__ == '__main__':

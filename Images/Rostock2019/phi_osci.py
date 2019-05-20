@@ -48,26 +48,27 @@ def main():
 
     plt.close('all')
     fig, ax1 = plt.subplots()
-    fig.set_figwidth(cm_to_inch(8.6 * 1.5))
+    fig.set_figwidth(cm_to_inch(8.6 * 2.0))
     fig.set_figheight(cm_to_inch(6.5))
     slow_start = None
     slow_stop = None
     slow_color = tum_color(0)
     l1, = ax1.plot(adjusted_slow_bins[slow_start:slow_stop], slow_zs[slow_start:slow_stop], color=slow_color, label='1')
-    ax1.tick_params('y', colors=slow_color)
-    ax1.set_ylim(slow_lower - 0.2, slow_upper)
-    ax1.set_ylabel(r'$\left\langle S_z \right\rangle$', color=slow_color)
+    ax1.tick_params('y')
+    # ax1.set_ylim(slow_lower - 0.2, slow_upper)
+    ax1.set_ylabel(r'$\left\langle S_z \right\rangle$')
     ax1.set_xlabel(r'$\int I \cdot \mathrm{d}t$' + ' (arb. u.)')
+    ax1.tick_params(direction='in', top=True, right=True)
 
-    ax2 = ax1.twinx()
-    fast_start = None
-    fast_stop = None
-    fast_color = tum_color(5)
-    l2, = ax2.plot(adjusted_fast_bins[fast_start:fast_stop], fast_zs[fast_start:fast_stop], color=fast_color, label='2')
-    ax2.tick_params('y', colors=fast_color)
-    ax2.set_ylim(fast_lower - 0.2, fast_upper)
-    ax2.set_ylabel(r'$\left\langle S_z \right\rangle$', color=fast_color)
-    plt.legend([l2, l1], ['60 mA', '10 mA'], loc='lower right', ncol=2)
+    # ax2 = ax1.twinx()
+    # fast_start = None
+    # fast_stop = None
+    # fast_color = tum_color(5)
+    # l2, = ax2.plot(adjusted_fast_bins[fast_start:fast_stop], fast_zs[fast_start:fast_stop], color=fast_color, label='2')
+    # ax2.tick_params('y', colors=fast_color)
+    # ax2.set_ylim(fast_lower - 0.2, fast_upper)
+    # ax2.set_ylabel(r'$\left\langle S_z \right\rangle$', color=fast_color)
+    # plt.legend([l1], ['low I'], loc='lower right')
     fig.tight_layout()
     plt.savefig('phase_oscillation.png', dpi=300)
 

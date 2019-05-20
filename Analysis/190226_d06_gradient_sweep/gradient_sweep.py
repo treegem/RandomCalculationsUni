@@ -28,7 +28,7 @@ def main():
             integrated_currents, ch2_current = integrate_currents(path, pulse_form_files, i)
             ch2_currents[i - 1] = ch2_current
         else:
-            integrated_currents = np.loadtxt('gradient_sweep/integrated_currents_ch1_{:03].txt'.format(i))
+            integrated_currents = np.loadtxt('gradient_sweep/integrated_currents_ch1_{:03}.txt'.format(i))
             ch2_currents = np.loadtxt('gradient_sweep/ch2_currents.txt')
             print('loaded integrated currents from file')
 
@@ -72,6 +72,7 @@ def fft_and_plots(xs, zs, name, i):
     plt.savefig('gradient_sweep/both_{}_{}.jpg'.format(name, i), dpi=300)
     plt.close('all')
     plt.plot(xs, zs[0] - zs[1])
+    np.savetxt('gradient_sweep/difference_{}_{}.txt'.format(name, i), zs[0] - zs[1])
     plt.savefig('gradient_sweep/difference_{}_{}.jpg'.format(name, i), dpi=300)
     freqs = np.fft.rfftfreq(len(xs), xs[-1] - xs[-2])
     fft_zs = np.fft.rfft(zs[0] - zs[1])

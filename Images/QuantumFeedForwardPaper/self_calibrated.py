@@ -6,7 +6,13 @@ import scipy.io as sio
 import scipy.optimize as soptimize
 
 from utility.imperial_to_metric import cm_to_inch
-from utility.tum_jet import tum_jet
+from utility.tum_jet import tum_jet, tum_raw
+
+
+def tum_color(index):
+    color = tum_raw[index]
+    norm_color = (color[0] / 256, color[1] / 256, color[2] / 256)
+    return norm_color
 
 
 def main():
@@ -19,37 +25,63 @@ def main():
     offset_x = calculate_offset(zs_x)
     offset_y = calculate_offset(zs_y)
 
-    rabi_amplitude = calc_rabi_amplitude()
+    # rabi_amplitude = calc_rabi_amplitude()
+    rabi_amplitude = 0.11
 
     matrix_x = shifted_matrix(zs_x, offset_x)
     matrix_y = shifted_matrix(zs_y, offset_y)
 
     # normalize_matrix(matrix_x)
     # normalize_matrix(matrix_y)
+    # 1.00976657456
 
-    save_triangle_plots(matrix_x, matrix_y, offset_x, offset_y, taus, rabi_amplitude)
+    save_triangle_plots(matrix_x, matrix_y, taus, rabi_amplitude)
 
     plt.close('all')
-    # fig, axes = plt.subplots(nrows=1, ncols=2)
-    fig, axes = plt.subplots(nrows=1, ncols=1)
+    # fig, axes = plt.subplots(nrows=1, ncols=1)
+    fig = plt.figure()
     fig.set_figwidth(cm_to_inch(8.6 * 1.))
-    fig.set_figheight(cm_to_inch(3))
+    fig.set_figheight(cm_to_inch(6.5))
     shown_row = 11
-    # imx = axes.flat[0].plot(np.trim_zeros(matrix_x.T[shown_row]))
-    # axes.flat[0].set_ylim([-0.4, 0.8])
-    # imy = axes.flat[1].plot(np.trim_zeros(matrix_y.T[shown_row]))
-    # axes.flat[1].set_ylim([-0.4, 0.8])
-    # axes.flat[1].axes.get_yaxis().set_ticklabels([])
-    # for ax in axes.flat:
-    #     ax.tick_params(axis='both', direction='in', top=True, right=True)
-    #     ax.set_xlabel(r'$\int I \cdot \mathrm{d}t$' + ' (arb. u.)')
-    # fig.subplots_adjust(right=0.75, left=0.16, wspace=0.0, bottom=0.4)
-    axes.plot(np.trim_zeros(matrix_x.T[shown_row]))
-    axes.plot(np.trim_zeros(matrix_y.T[shown_row]))
-    axes.set_xlabel(r'$\int I \cdot \mathrm{d}t$' + ' (arb. u.)')
-    axes.tick_params(axis='both', direction='in', top=True, right=True)
-    fig.subplots_adjust(bottom=0.42, top=0.95)
+    matrix_x = np.trim_zeros(matrix_x.T[shown_row]) / rabi_amplitude + 0.5
+    matrix_y = np.trim_zeros(matrix_y.T[shown_row]) / rabi_amplitude + 0.5
+    x_axis_x = np.linspace(0, 1, len(matrix_x))
+    x_axis_y = np.linspace(0, 1, len(matrix_y))
+    x_params, y_params = fit_examples(matrix_x, matrix_y, x_axis_x, x_axis_y)
+    ax1 = fig.add_subplot(211)
+    ax1.plot(x_axis_x, matrix_x, '.', color=tum_color(0))
+    ax1.plot(x_axis_x, fit_func(x_axis_x, *x_params), '--', color=tum_color(5))
+    ax1.set_ylim([0, 1])
+    ax1.tick_params(direction='in', right=True, top=True)
+    ax2 = fig.add_subplot(212)
+    ax2.plot(x_axis_y, matrix_y, '.', color=tum_color(0))
+    ax2.plot(x_axis_y, fit_func(x_axis_y, *y_params), '--', color=tum_color(5))
+    ax2.set_ylim([0, 1])
+    ax2.set_xlabel(r'$\int I \cdot \mathrm{d}t$' + ' (arb. u.)')
+    ax2.set_yticks([0, 0.5])
+    ax2.tick_params(direction='in', right=True, top=True)
+    plt.setp(ax1.get_xticklabels(), visible=False)
+    plt.subplots_adjust(hspace=0)
+    fig.subplots_adjust(bottom=0.22, top=0.95, left=0.15)
+    plt.ylabel(r'                    $1-\left\langle S_z \right\rangle$')
     plt.savefig('self_calibrated_examples.jpg', dpi=300)
+
+
+def fit_examples(matrix_x, matrix_y, x_axis_x, x_axis_y):
+    x_params = perform_fit(p0=[0.22, 0.5, 0.1, 0.5], trimmed=matrix_x, xdata=x_axis_x)
+    print(x_params)
+    y_params = perform_fit(p0=[0.2167, 0.5, -np.pi / 4, 0.5], trimmed=matrix_y, xdata=x_axis_y)
+    print(y_params)
+    return x_params, y_params
+
+
+def zs_to_probability(random_data, offset):
+    rabi_amplitude = 0.0900362701808  # calculated in phi_oscillation.py
+    rabi_amplitude = 0.11
+    random_data -= offset
+    random_data /= rabi_amplitude
+    random_data = random_data / 2 + 0.5
+    return random_data
 
 
 def calc_rabi_amplitude():
@@ -65,7 +97,7 @@ def calc_rabi_amplitude():
 
 def perform_fit(p0, trimmed, xdata):
     popt, pcov = soptimize.curve_fit(fit_func, xdata, trimmed, p0=p0, bounds=(
-        [p0[0] / 2, 0, -1.5, 0], [p0[0] * 2, 100, 1.5, 2]))
+        [p0[0] / 2, 0.35, -np.pi, 0.5], [p0[0] * 2, 2, 2.25 * np.pi, 1]))
     return popt
 
 
@@ -73,7 +105,7 @@ def fit_func(t, T, A, phi, C):
     return A * np.cos(t * 2 * np.pi / T + phi) + C
 
 
-def save_triangle_plots(matrix_x, matrix_y, offset_x, offset_y, taus, rabi_amplitude):
+def save_triangle_plots(matrix_x, matrix_y, taus, rabi_amplitude):
     plt.close('all')
     fig, axes = plt.subplots(nrows=1, ncols=2)
     fig.set_figwidth(cm_to_inch(8.6 * 1.))

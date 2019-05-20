@@ -2,21 +2,64 @@ import os
 
 import matplotlib.pyplot as plt
 import numpy as np
-import utility.tum_jet as tum_jet
 import scipy.optimize
 
+import utility.tum_jet as tum_jet
+from utility.imperial_to_metric import cm_to_inch
+from utility.tum_jet import tum_jet, tum_raw
 
-def compose_final(path):
+
+def tum_color(index):
+    color = tum_raw[index]
+    norm_color = (color[0] / 256, color[1] / 256, color[2] / 256)
+    return norm_color
+
+
+def zs_to_probability(random_data, offset):
+    rabi_amplitude = 0.0900362701808  # calculated in phi_oscillation.py
+    rabi_amplitude = 0.11
+    random_data -= offset
+    random_data /= rabi_amplitude
+    random_data = random_data / 2 + 0.5
+    return random_data
+
+
+def compose_final(path, taus):
+    offset_x = np.loadtxt('offsets_x.txt')
+    offset_y = np.loadtxt('offsets_y.txt')
+    offset = np.average([offset_x, offset_y])
+
     sinus_fit_graph = np.loadtxt('amplitudes.txt')
     post_selected_graph = np.loadtxt('post_selected_in_one.txt')
     unprocessed = np.loadtxt(os.path.join(path, 'zs_regular.txt'))
 
+    # total_max = max(sinus_fit_graph.max(), post_selected_graph.max(), unprocessed.max())
+
+    sinus_fit_graph = zs_to_probability(sinus_fit_graph, offset)
+    plot_exp_fit_graph(sinus_fit_graph, taus)
+    post_selected_graph = zs_to_probability(post_selected_graph, offset)
+    plot_exp_fit_graph(post_selected_graph, taus)
+    unprocessed = zs_to_probability(unprocessed, offset)
+    plot_exp_fit_graph(unprocessed, taus)
+
     plt.close('all')
-    plt.plot(unprocessed, label='unprocessed')
-    plt.plot(post_selected_graph, label='post_selected')
-    plt.plot(sinus_fit_graph, label='sine fit')
+    plt.figure(figsize=(cm_to_inch(1.5 * 8.6), cm_to_inch(6.5)))
+    plt.plot(taus, unprocessed, label='unprocessed', color=tum_color(0))
+    plt.plot(taus, post_selected_graph, label='feed forward decoupling', color=tum_color(3))
+    plt.plot(taus, sinus_fit_graph, label='sine fit', color=tum_color(2))
     plt.legend()
-    plt.savefig('all_fits.jpg', dpi=300)
+    plt.xlabel(r'$\tau$ (ns)')
+    plt.ylabel(r'$1-\left\langle S_z \right\rangle$')
+    plt.tight_layout()
+    plt.savefig('all_fits.svg')
+
+
+def plot_exp_fit_graph(exp_fit_graph, taus):
+    params = fit_exp(p0=[100, 0.3, 0.5], ydata=exp_fit_graph, xdata=taus)
+    plt.close('all')
+    plt.plot(taus, exp_fit_graph)
+    plt.plot(taus, exp_func(taus, *params))
+    plt.show()
 
 
 def main():
@@ -31,18 +74,18 @@ def main():
     offset_x = calculate_offset(zs_x)
     offset_y = calculate_offset(zs_y)
 
-    matrix_x = shifted_matrix(zs_x, offset_x)
-    matrix_y = shifted_matrix(zs_y, offset_y)
+    # matrix_x = shifted_matrix(zs_x, offset_x)
+    # matrix_y = shifted_matrix(zs_y, offset_y)
 
-    plot_rows(matrix_x, 'x')
+    # plot_rows(matrix_x, 'x')
 
-    post_selected_plot(path, taus)
-    sinus_fit(matrix_x, matrix_y, taus, offset_x, offset_y)
+    # post_selected_plot(path, taus)
+    # sinus_fit(matrix_x, matrix_y, taus, offset_x, offset_y)
 
     # fft_single_phase(matrix_x, 'x')
     # fft_single_phase(matrix_y, 'y')
 
-    compose_final(path)
+    compose_final(path, taus)
 
 
 def plot_rows(matrix, phase):
@@ -135,16 +178,26 @@ def remove_outliers(row, mini, maxi):
             row[j] = mini
 
 
-def perform_fit(p0, trimmed, xdata):
-    popt, pcov = scipy.optimize.curve_fit(fit_func, xdata, trimmed, p0=p0,
-                                          bounds=(
-                                              [p0[0] / 2, 0, -np.pi + p0[2], -0.2],
-                                              [p0[0] * 2, 0.2, np.pi + p0[2], 0.2]))
+def exp_func(t, T, A, C):
+    return A * np.exp(-t / T) + C
+
+
+def fit_exp(p0, ydata, xdata, func=exp_func):
+    popt, pcov = scipy.optimize.curve_fit(func, xdata, ydata, p0=p0)
+    print(popt)
     return popt
 
 
 def fit_func(t, T, A, phi, C):
     return A * np.cos(t * 2 * np.pi / T + phi) + C
+
+
+def perform_fit(p0, trimmed, xdata, func=fit_func):
+    popt, pcov = scipy.optimize.curve_fit(func, xdata, trimmed, p0=p0,
+                                          bounds=(
+                                              [p0[0] / 2, 0, -np.pi + p0[2], -0.2],
+                                              [p0[0] * 2, 0.2, np.pi + p0[2], 0.2]))
+    return popt
 
 
 def normalize_matrix(matrix):
@@ -222,7 +275,7 @@ def post_selected_plot(path, taus):
 
 
 def tum_color(index):
-    color = tum_jet.tum_raw[index]
+    color = tum_raw[index]
     norm_color = (color[0] / 256, color[1] / 256, color[2] / 256)
     return norm_color
 
