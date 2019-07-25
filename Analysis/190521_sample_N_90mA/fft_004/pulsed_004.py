@@ -9,13 +9,15 @@ from utility.integrate_currents import integrate_current
 
 
 def main():
-    path = '//file/e24/Projects/ReinhardLab/data_setup_nv1/190520_sample_N'
-    fname = 'pulsed.028.mat'
+    path = '//file/e24/Projects/ReinhardLab/data_setup_nv1/190521_sample_N_90mA'
+    fname = 'pulsed.004.mat'
     full_name = os.path.join(path, fname)
 
     mat_data = sio.loadmat(full_name)
     taus = mat_data['taus'][0]
     z = subtract_zs(mat_data, taus)
+    np.savetxt('zs.txt', z)
+    np.savetxt('taus.txt', taus)
 
     # TAU VS Z
 
@@ -29,8 +31,8 @@ def main():
     if not os.path.isfile(current_file):
         print('Integrating current...')
         integrate_current(
-            fname='//file/e24/Projects/ReinhardLab/data_setup_nv1/190520_sample_N/analogue_028/analogue_data_ch1.txt',
-            sweeps=4,
+            fname='//file/e24/Projects/ReinhardLab/data_setup_nv1/190521_sample_N_90mA/new_analogue_004/analogue_data_ch1.txt',
+            sweeps=2,
             samples_per_sweep=len(taus),
             outname=current_file
         )
@@ -44,7 +46,9 @@ def main():
     # TAU FFT
 
     fft_data = rfft(z)
+    np.savetxt('fft_tau_data_{}.txt'.format(fname[:-4]), abs(fft_data))
     fft_freqs = rfftfreq(len(taus), (taus[1] - taus[0]) * 1e-9)
+    np.savetxt('tau_freqs_{}.txt'.format(fname[:-4]), abs(fft_freqs))
     plt.close('all')
     plt.plot(fft_freqs, abs(fft_data))
     plt.savefig('fft_{}.jpg'.format(fname[:-4]))
@@ -52,12 +56,16 @@ def main():
     # I FFT
     equi_currents = np.linspace(integrated_currents[0], integrated_currents[-1], len(integrated_currents))
     interp_z = np.interp(equi_currents, integrated_currents, z)
+    np.savetxt('interp_z_{}.txt'.format(fname[:-4]), interp_z)
+    np.savetxt('interp_currents.txt'.format(fname[:-4]), equi_currents)
     plt.close('all')
     plt.plot(equi_currents, interp_z)
     plt.savefig('interp_{}.jpg'.format(current_file[:-4]))
 
     fft_data = rfft(interp_z)
     fft_freqs = rfftfreq(len(equi_currents), equi_currents[1] - equi_currents[0])
+    np.savetxt('b_freqs_{}.txt'.format(fname[:-4]), abs(fft_freqs))
+    np.savetxt('fft_data_{}.txt'.format(fname[:-4]), abs(fft_data))
     plt.close('all')
     plt.plot(fft_freqs, abs(fft_data))
     plt.savefig('fft_i_{}.jpg'.format(fname[:-4]))

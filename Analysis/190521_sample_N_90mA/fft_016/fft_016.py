@@ -9,8 +9,8 @@ from utility.integrate_currents import integrate_current
 
 
 def main():
-    path = '//file/e24/Projects/ReinhardLab/data_setup_nv1/190520_sample_N'
-    fname = 'pulsed.028.mat'
+    path = '//file/e24/Projects/ReinhardLab/data_setup_nv1/190521_sample_N_90mA'
+    fname = 'pulsed.016.mat'
     full_name = os.path.join(path, fname)
 
     mat_data = sio.loadmat(full_name)
@@ -29,8 +29,8 @@ def main():
     if not os.path.isfile(current_file):
         print('Integrating current...')
         integrate_current(
-            fname='//file/e24/Projects/ReinhardLab/data_setup_nv1/190520_sample_N/analogue_028/analogue_data_ch1.txt',
-            sweeps=4,
+            fname='//file/e24/Projects/ReinhardLab/data_setup_nv1/190521_sample_N_90mA/analogue_011/analogue_data_ch1.txt',
+            sweeps=1,
             samples_per_sweep=len(taus),
             outname=current_file
         )
@@ -44,9 +44,11 @@ def main():
     # TAU FFT
 
     fft_data = rfft(z)
+    np.savetxt('fft_tau_data_{}.txt'.format(fname[:-4]), abs(fft_data))
     fft_freqs = rfftfreq(len(taus), (taus[1] - taus[0]) * 1e-9)
+    np.savetxt('freqs_{}.txt'.format(fname[:-4]), fft_freqs)
     plt.close('all')
-    plt.plot(fft_freqs, abs(fft_data))
+    plt.plot(fft_freqs[1:], abs(fft_data[1:]))
     plt.savefig('fft_{}.jpg'.format(fname[:-4]))
 
     # I FFT
@@ -58,8 +60,10 @@ def main():
 
     fft_data = rfft(interp_z)
     fft_freqs = rfftfreq(len(equi_currents), equi_currents[1] - equi_currents[0])
+    np.savetxt('fft_freq_{}.txt'.format(fname[:-4]), abs(fft_freqs))
+    np.savetxt('fft_data_{}.txt'.format(fname[:-4]), abs(fft_data))
     plt.close('all')
-    plt.plot(fft_freqs, abs(fft_data))
+    plt.plot(fft_freqs[1:], abs(fft_data[1:]))
     plt.savefig('fft_i_{}.jpg'.format(fname[:-4]))
 
 

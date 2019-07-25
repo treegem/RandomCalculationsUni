@@ -18,3 +18,9 @@ offsets = [.0, .35, .5, .75, .85, .95, 1.0]
 tum_colors = [(offsets[ci], (col[0] / 255.0, col[1] / 255.0, col[2] / 255.0)) for ci, col in enumerate(tum_raw)]
 
 tum_jet = pylab.matplotlib.colors.LinearSegmentedColormap.from_list("tum_jet", tum_colors)
+
+def tum_color(index):
+    color = tum_raw[index]
+    norm_color = (color[0] / 256, color[1] / 256, color[2] / 256)
+    return norm_color
+

@@ -8,6 +8,7 @@ def subtract_baseline(array):
 
 def integrate_current(fname, sweeps, samples_per_sweep, outname):
     osci_data = np.loadtxt(fname) / sweeps
+    print(osci_data[0])
     osci_data = subtract_baseline(osci_data)
     window_length = int(len(osci_data) / samples_per_sweep)
     integrated = np.zeros(samples_per_sweep)
