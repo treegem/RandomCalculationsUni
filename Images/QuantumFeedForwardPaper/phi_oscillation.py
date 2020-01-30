@@ -34,6 +34,7 @@ def main():
     rabi_zs = loadmat(os.path.join(rabi_path, rabi_name))['zs'][0]
     rabi_amplitude = fit_amplitude(p0=[0.2, 1 / 80., 0.85, 0], xdata=rabi_taus, ydata=rabi_zs)
     slow_zs = shift_and_normalize_zs(phi_amplitude, rabi_amplitude, zs=slow_zs)
+    np.savetxt('slow_zs.txt', slow_zs)
 
     phi_amplitude = fit_amplitude(p0=[0.02, 10 / 0.2, 0.84, 0], xdata=adjusted_fast_bins, ydata=fast_zs)
     rabi_name = 'pulsed.009.mat'
@@ -42,32 +43,33 @@ def main():
     rabi_zs = loadmat(os.path.join(rabi_path, rabi_name))['zs'][0]
     rabi_amplitude = fit_amplitude(p0=[0.1, 1 / 120., 0.85, 0], xdata=rabi_taus, ydata=rabi_zs)
     fast_zs = shift_and_normalize_zs(phi_amplitude, rabi_amplitude, zs=fast_zs)
-
-    slow_lower, slow_upper = calc_y_limits('above', slow_zs)
-    fast_lower, fast_upper = calc_y_limits('below', fast_zs)
+    np.savetxt('fast_zs.txt', fast_zs)
 
     plt.close('all')
-    fig, ax1 = plt.subplots()
-    fig.set_figwidth(cm_to_inch(8.6 * 1.5))
-    fig.set_figheight(cm_to_inch(6.5))
+    fig, (ax1, ax2) = plt.subplots(2, 1)
+    fig.set_figwidth(cm_to_inch(8.6 * 1.))
+    fig.set_figheight(cm_to_inch(10))
     slow_start = None
     slow_stop = None
     slow_color = tum_color(0)
-    l1, = ax1.plot(adjusted_slow_bins[slow_start:slow_stop], slow_zs[slow_start:slow_stop], color=slow_color, label='1')
-    ax1.tick_params('y', colors=slow_color)
-    ax1.set_ylim(slow_lower - 0.2, slow_upper)
-    ax1.set_ylabel(r'$\left\langle S_z \right\rangle$', color=slow_color)
-    ax1.set_xlabel(r'$\int I \cdot \mathrm{d}t$' + ' (arb. u.)')
+    ax1.plot(adjusted_slow_bins[slow_start:slow_stop] * 0.5, slow_zs[slow_start:slow_stop], color=slow_color,
+             label='3.5 mA')
+    ax1.set_ylim(0.25, 0.7)
+    ax1.set_ylabel(r'$\left\langle S_z \right\rangle$')
+    ax1.set_xlabel(r'$\int I \cdot \mathrm{d}t$' + r' (3.5 mA$\cdot \mu$s)')
+    ax1.legend(loc='lower right')
 
-    ax2 = ax1.twinx()
+    # ax2 = ax1.twinx()
     fast_start = None
     fast_stop = None
-    fast_color = tum_color(5)
-    l2, = ax2.plot(adjusted_fast_bins[fast_start:fast_stop], fast_zs[fast_start:fast_stop], color=fast_color, label='2')
-    ax2.tick_params('y', colors=fast_color)
-    ax2.set_ylim(fast_lower - 0.2, fast_upper)
-    ax2.set_ylabel(r'$\left\langle S_z \right\rangle$', color=fast_color)
-    plt.legend([l2, l1], ['60 mA', '10 mA'], loc='lower right', ncol=2)
+    fast_color = tum_color(0)
+    ax2.plot(adjusted_fast_bins[fast_start:fast_stop] * 0.5, fast_zs[fast_start:fast_stop], color=fast_color,
+             label='60 mA')
+    ax2.tick_params('y')
+    ax2.set_ylim(0.28, 0.7)
+    ax2.set_ylabel(r'$\left\langle S_z \right\rangle$')
+    ax2.set_xlabel(r'$\int I \cdot \mathrm{d}t$' + r' (60 mA$\cdot \mu$s)')
+    ax2.legend(loc='lower right')
     fig.tight_layout()
     plt.savefig('phase_oscillation.png', dpi=300)
 

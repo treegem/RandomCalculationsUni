@@ -6,7 +6,7 @@ import numpy as np
 # This is only for single values in the Spectrogram. So for a single window that has been analyzed.
 
 def main():
-    folders = ['5_1000', '5000_6000', '10000_11000', '15000_16000', '20000_21000', '25000_26000']
+    folders = ['5_250', '5000_5200', '10000_10200', '15000_15200', '20000_20200', '23800_24000']
     sxx = []
     for folder in folders:
         sxx.append(np.loadtxt('{}_sxx_tau.txt'.format(folder)))

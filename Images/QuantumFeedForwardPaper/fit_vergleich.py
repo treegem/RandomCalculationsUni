@@ -4,9 +4,8 @@ import matplotlib.pyplot as plt
 import numpy as np
 import scipy.optimize
 
-import utility.tum_jet as tum_jet
 from utility.imperial_to_metric import cm_to_inch
-from utility.tum_jet import tum_jet, tum_raw
+from utility.tum_jet import tum_raw
 
 
 def tum_color(index):
@@ -15,12 +14,14 @@ def tum_color(index):
     return norm_color
 
 
-def zs_to_probability(random_data, offset):
+def zs_to_probability(random_data, offset, save=False):
     rabi_amplitude = 0.0900362701808  # calculated in phi_oscillation.py
     rabi_amplitude = 0.11
     random_data -= offset
     random_data /= rabi_amplitude
     random_data = random_data / 2 + 0.5
+    if save is True:
+        np.savetxt('sine_fit_zs.txt', random_data)
     return random_data
 
 
@@ -35,7 +36,7 @@ def compose_final(path, taus):
 
     # total_max = max(sinus_fit_graph.max(), post_selected_graph.max(), unprocessed.max())
 
-    sinus_fit_graph = zs_to_probability(sinus_fit_graph, offset)
+    sinus_fit_graph = zs_to_probability(sinus_fit_graph, offset, save=True)
     plot_exp_fit_graph(sinus_fit_graph, taus)
     post_selected_graph = zs_to_probability(post_selected_graph, offset)
     plot_exp_fit_graph(post_selected_graph, taus)

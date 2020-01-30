@@ -2,6 +2,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 from scipy.optimize import curve_fit
 
+from utility.imperial_to_metric import cm_to_inch
 from utility.tum_jet import tum_color
 
 
@@ -10,23 +11,92 @@ def stretched(t, T2, n, A):
 
 
 def main():
+    decay_comparison()
+
+    oscillation()
+
+
+def oscillation():
+    #  fit parameters taken from pulsed.013.mat in the corresponding folder
+    amplitude = 7.67478639e-02
+    tau_zs_0, taus_0, zs_0, taus_b_0 = load_txts(name='002_phase_oscillation_5_5000', sequence_length_taus=50,
+                                                 sequence_length_bs=40, zs_shift=3)
+    tau_zs_1, taus_1, zs_1, taus_b_1 = load_txts(name='20000_25000', sequence_length_taus=50,
+                                                 sequence_length_bs=40, zs_shift=3)
+    tau_zs_2, taus_2, zs_2, taus_b_2 = load_txts(name='25000_30000', sequence_length_taus=50,
+                                                 sequence_length_bs=40, zs_shift=3)
+    plt.close('all')
+    fig, axes = plt.subplots(nrows=2, ncols=3, sharex='col', sharey='all')
+    fig.set_figwidth(cm_to_inch(8.6 * 1.))
+    fig.set_figheight(cm_to_inch(5.5))
+    fig.text(0.55, 0.04, 'current duration(µs)', ha='center')
+    fig.text(0.03, 0.55, r'$1-\left\langle S_z \right\rangle$', va='center', rotation='vertical')
+    plt.subplots_adjust(hspace=0, wspace=0.2, bottom=0.2, top=0.95, right=0.95, left=0.15)
+    plot_column(amplitude, axes, 0, tau_zs_0, taus_0, taus_b_0, zs_0)
+    plot_column(amplitude, axes, 1, tau_zs_1, taus_1, taus_b_1, zs_1)
+    plot_column(amplitude, axes, 2, tau_zs_2, taus_2, taus_b_2, zs_2)
+    plt.savefig('zzz_oscillations.jpg', dpi=300)
+
+
+def plot_column(amplitude, axes, column, tau_zs, taus, taus_b, zs):
+    axes[0, column].plot(taus_b, (zs - np.average(zs)) / amplitude * 0.5 + 0.5, color=tum_color(0), label='test')
+    axes[1, column].plot(taus, (tau_zs - np.average(tau_zs[1:])) / amplitude * 0.5 + 0.5, color=tum_color(5))
+    if column == 2:
+        axes[0, column].text(25.35, 0.85, 'qff')
+        axes[1, column].text(25.2, 0.85, 'no qff')
+
+
+def load_txts(name, sequence_length_taus, sequence_length_bs, zs_shift):
+    taus = np.loadtxt('{}_taus.txt'.format(name))[:sequence_length_taus]
+    taus_b = np.loadtxt('{}_taus.txt'.format(name))[:sequence_length_bs]
+    taus_b = rescale(taus, taus_b)
+    taus_b = taus_b * 1e-3
+    taus = taus * 1e-3
+    zs = np.loadtxt('{}_zs.txt'.format(name))[zs_shift:zs_shift + sequence_length_bs]
+    tau_zs = np.loadtxt('{}_tau_zs.txt'.format(name))[:sequence_length_taus]
+    return tau_zs, taus, zs, taus_b
+
+
+def rescale(taus, taus_b):
+    start = taus_b[0]
+    taus_b = taus_b - start
+    taus_b = taus_b * (taus - taus[0]).max() / taus_b.max()
+    taus_b = taus_b + start
+    return taus_b
+
+
+def decay_comparison():
+    qff_average, tau_average = calc_average()
     qff = np.loadtxt('decays_qff.txt')
     tau = np.loadtxt('decays_tau.txt')
-
-    qff = qff / np.average(qff[:4])
-    tau = tau / np.average(tau[:4])
-
-    xs = list(range(len(qff)))
-    popt_qff, _ = curve_fit(stretched, xdata=xs, ydata=qff, p0=[20, 1, 1])
-    popt_tau, _ = curve_fit(stretched, xdata=xs, ydata=tau, p0=[20, 1, 1])
-
+    qff = qff / qff_average
+    tau = tau / tau_average
+    xs = np.linspace(5e-3, 30, len(qff))
+    popt_qff, pcov_qff = curve_fit(stretched, xdata=xs, ydata=qff, p0=[20, 1, 1])
+    popt_tau, pcov_tau = curve_fit(stretched, xdata=xs, ydata=tau, p0=[20, 1, 1])
     plt.close('all')
-    plt.plot(tau, label='no_qff, T2={:.1f}, n={:.1f}'.format(*popt_tau), color=tum_color(5))
-    plt.plot(stretched(xs, *popt_tau), '.', color=tum_color(5))
-    plt.plot(qff, label='qff, T2={:.1f}, n={:.1f}'.format(*popt_qff), color=tum_color(0))
-    plt.plot(stretched(xs, *popt_qff), '.', color=tum_color(0))
+    fig = plt.figure(figsize=(cm_to_inch(8.6), cm_to_inch(7.5)))
+    plt.plot(xs, tau, '.',
+             label=r'no qff, $T_2=\left( {:.1f} \pm {:.1f} \right) $ µs'.format(popt_tau[0], np.sqrt(pcov_tau[0, 0])),
+             color=tum_color(5))
+    plt.plot(xs[::2], stretched(xs, *popt_tau)[::2], color=tum_color(5))
+    plt.plot(xs, qff, '.',
+             label=r'qff, $T_2=\left( {:.1f} \pm {:.1f} \right) $ µs'.format(popt_qff[0], np.sqrt(pcov_qff[0, 0])),
+             color=tum_color(0))
+    plt.plot(xs[::2], stretched(xs, *popt_qff)[::2], color=tum_color(0))
+    plt.xlabel(r'$\int I \cdot \mathrm{d}t$' + ' (40 mA' + r'$\cdot $' + 'µs)')
+    plt.ylabel('amplitude (normalized)')
     plt.legend()
+    plt.tight_layout()
     plt.savefig('decays_comparison.jpg', dpi=300)
+
+
+def calc_average():
+    qff = np.loadtxt('decays_qff.txt')
+    tau = np.loadtxt('decays_tau.txt')
+    qff_average = np.average(qff[:5])
+    tau_average = np.average(tau[:1])
+    return qff_average, tau_average
 
 
 if __name__ == '__main__':

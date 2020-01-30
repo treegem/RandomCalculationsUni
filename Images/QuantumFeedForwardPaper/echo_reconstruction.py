@@ -58,11 +58,10 @@ def main():
     yplus, yminus = mirror_y_graphs(estimated_middle, yminus, yplus)
     yminus_start, yminus_stop, yplus_start, yplus_stop = yplus_start, yplus_stop, yminus_start, yminus_stop
     average_plus_minus(estimated_middle, minus=yminus, plus=yplus, start=yminus_start, stop=yminus_stop)
-    plt.plot(taus, pure_data, label='pure echo', color=pure_color)
-    plt.plot(taus, regular_data, label='unprocessed', color=tum_color(0))
-    plt.plot(taus[xplus_start:xplus_stop], xplus[xplus_start:xplus_stop], label=r'$\mathit{x}$', color=x_color)
-    # plt.plot(taus[xminus_start:xminus_stop], xminus[xminus_start:xminus_stop], color=x_color)
-    plt.plot(taus[yplus_start:yplus_stop], yplus[yplus_start:yplus_stop], label=r'$\mathit{y}$', color=y_color)
+    plt.plot(taus, pure_data, label=r'$\sigma_I = 0$', color=pure_color)
+    plt.plot(taus, regular_data, label='$\sigma_I = 3.5$ mA', color=tum_color(0))
+    plt.plot(taus[xplus_start:xplus_stop], xplus[xplus_start:xplus_stop], label=r'qff$_x$', color=x_color)
+    plt.plot(taus[yplus_start:yplus_stop], yplus[yplus_start:yplus_stop], label=r'qff$_y$', color=y_color)
     np.savetxt('taus.txt', taus)
     np.savetxt('regular.txt', regular_data)
     np.savetxt('pure.txt', pure_data)
@@ -70,13 +69,12 @@ def main():
     np.savetxt('x.txt', xplus[xplus_start:xplus_stop])
     np.savetxt('y_taus.txt', taus[yplus_start:yplus_stop])
     np.savetxt('y.txt', yplus[yplus_start:yplus_stop])
-    # plt.plot(taus[yminus_start:yminus_stop], yminus[yminus_start:yminus_stop], color=y_color)
     plt.ylabel(r'$1-\left\langle S_z \right\rangle$')
     plt.xlabel(r'$\tau$ (ns)')
     plt.ylim(bottom=plt.ylim()[0] - 0.2)
     plt.legend(loc='lower center', ncol=2, frameon=False)
     fig.tight_layout()
-    plt.savefig('echo_reconstruction_vector.png', dpi=300)
+    plt.savefig('echo_reconstruction.png', dpi=300)
 
 
 def zs_to_probability(random_data):

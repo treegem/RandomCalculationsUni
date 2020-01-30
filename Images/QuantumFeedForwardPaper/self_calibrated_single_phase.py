@@ -71,34 +71,54 @@ def fit_func(t, T, A, phi, C):
     return A * np.cos(t * 2 * np.pi / T + phi) + C
 
 
+def compress_matrix_vertical(matrix_x):
+    echo_decay = np.loadtxt('sine_fit_zs.txt')
+    return echo_decay
+
+
 def save_triangle_plots(matrix_x, taus, rabi_amplitude):
     plt.close('all')
-    fig, axes = plt.subplots(nrows=1, ncols=2)
+    fig, axes = plt.subplots(nrows=2, ncols=2)
     fig.set_figwidth(cm_to_inch(8.6 * 1.))
-    fig.set_figheight(cm_to_inch(5.5))
+    fig.set_figheight(cm_to_inch(5.5 * 1.3))
     vmin = -0.5 + 0.5
     vmax = 0.5 + 0.5
     imone = axes.flat[0].imshow(matrix_x / rabi_amplitude + 0.5, aspect='auto', vmin=vmin, vmax=vmax, cmap=tum_jet,
-                                interpolation='bicubic', extent=[taus[0], taus[-1], 0, 1], origin='lower')
+                                interpolation='bicubic', extent=[taus[0], taus[-1], 0, 0.5], origin='lower')
     c_matrix_x = compress_matrix_horizontal(matrix_x) / rabi_amplitude + 0.5
-    imtwo = axes.flat[1].plot(c_matrix_x, np.linspace(c_matrix_x.min(), c_matrix_x.max(), len(c_matrix_x)))
-    axes.flat[0].set_ylabel(r'$\int I \cdot \mathrm{d}t$' + ' (arb. u.)')
+    imtwo = axes.flat[1].plot(c_matrix_x, np.linspace(c_matrix_x.min(), c_matrix_x.max(), len(c_matrix_x)),
+                              color=tum_color(0))
+
+    echo_decay = compress_matrix_vertical(matrix_x)
+    imthree = axes.flat[2].plot(taus, echo_decay, color=tum_color(0))
+
+    axes.flat[0].set_ylabel(r'$\int I \cdot \mathrm{d}t$' + r' (20 mA$\cdot \mu$s)')
     axes.flat[0].tick_params(axis='both', direction='in', top=True, right=True)
-    axes.flat[0].set_xlabel(r'$\tau$ (ns)')
+    axes.flat[0].axes.get_yaxis().set_ticks(
+        [0, 0.1, 0.2, 0.3, 0.4, 0.5])
+    axes.flat[0].axes.get_xaxis().set_ticks([255])
+
     axes.flat[1].tick_params(axis='both', direction='in', top=True, right=True)
     axes.flat[1].axes.get_yaxis().set_ticklabels([])
     axes.flat[1].set_xlim([0, 1])
     axes.flat[1].set_ylim([c_matrix_x.min(), c_matrix_x.max()])
     axes.flat[1].axes.get_xaxis().set_ticks([0.5, 1])
+    axes.flat[1].axes.get_xaxis().set_ticklabels([0.5, 1])
     amplitude = c_matrix_x.max() - c_matrix_x.min()
     axes.flat[1].axes.get_yaxis().set_ticks(
         [c_matrix_x.min(), c_matrix_x.min() + 0.2 * amplitude, c_matrix_x.min() + 0.4 * amplitude,
          c_matrix_x.min() + 0.6 * amplitude, c_matrix_x.min() + 0.8 * amplitude, c_matrix_x.min() + amplitude])
     axes.flat[1].set_xlabel(r'$1-\left\langle S_z \right\rangle$')
-    plt.tight_layout()
-    fig.subplots_adjust(right=0.75, left=0.16, wspace=0.0)
-    cbar_ax = fig.add_axes([0.82, 0.2, 0.05, 0.7])
-    fig.colorbar(imone, cax=cbar_ax)
+
+    axes.flat[2].set_xlabel(r'$\tau$ (ns)')
+    axes.flat[2].set_ylabel(r'$1-\left\langle S_z \right\rangle$')
+    axes.flat[2].set_xlim([0, 500])
+    axes.flat[2].axes.get_xaxis().set_ticks([0, 250, 500])
+
+    fig.delaxes(axes.flat[3])
+    fig.subplots_adjust(right=0.75, left=0.2, bottom=0.15, top=0.95, wspace=0.0, hspace=0.0)
+    cbar_ax = fig.add_axes([0.8, 0.55, 0.05, 0.4])
+    fig.colorbar(imone, cax=cbar_ax, label=r'$1-\left\langle S_z \right\rangle$', ticks=[0, 0.5, 1])
     plt.savefig('self_calibrated_x_wrong_colors.jpg', dpi=500)
 
 
