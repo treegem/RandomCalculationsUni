@@ -14,8 +14,8 @@ def create_and_save_plot():
     plt.plot(ns_continuous, sensitivity(ns_continuous) / sensitivity(ns_continuous).min(), '--',
              color=tum_jet.tum_color(0))
     plt.plot(ns_discrete, sensitivity(ns_discrete) / sensitivity(ns_continuous).min(), 'o', color=tum_jet.tum_color(0))
-    plt.xlabel('number of sectors')
-    plt.ylabel('sensitivity (arb. u.)')
+    plt.xlabel(r'$N_S$')
+    plt.ylabel(r'$\sigma_B$ (arb. u.)')
     plt.tight_layout()
     plt.savefig('sensitivity_vs_sectors.png', dpi=500)
 
