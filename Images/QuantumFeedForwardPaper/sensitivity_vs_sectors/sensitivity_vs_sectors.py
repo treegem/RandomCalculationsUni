@@ -10,7 +10,7 @@ def sensitivity(n):
 
 
 if __name__ == '__main__':
-    ns_continuous = np.linspace(1.8, 8.2, 50)
+    ns_continuous = np.linspace(1.8, 8.2, 150)
     ns_discrete = np.arange(2, 8.1, 2)
 
     fig = plt.figure(figsize=(cm_to_inch(1.0 * 8.6), cm_to_inch(7)))
@@ -20,4 +20,4 @@ if __name__ == '__main__':
     plt.xlabel('number of sectors')
     plt.ylabel('sensitivity (arb. u.)')
     plt.tight_layout()
-    plt.show()
+    plt.savefig('sensitivity_vs_sectors.png', dpi=500)
