@@ -76,18 +76,18 @@ def decay_comparison():
     popt_tau, pcov_tau = curve_fit(stretched, xdata=xs, ydata=tau, p0=[20, 1, 1])
     plt.close('all')
     plt.figure(figsize=(cm_to_inch(8.6), cm_to_inch(7.5)))
-    plt.plot(xs, tau, '.',
+    plt.plot(xs, tau / 2 + 0.5, '.',
              label=r'uncorr., $T_\rho=\left( {:.1f} \pm {:.1f} \right) $ µs'.format(popt_tau[0],
-                                                                                          np.sqrt(pcov_tau[0, 0])),
+                                                                                    np.sqrt(pcov_tau[0, 0])),
              color=tum_color(5))
-    plt.plot(xs[::2], stretched(xs, *popt_tau)[::2], color=tum_color(5))
-    plt.plot(xs, qff, '.',
+    plt.plot(xs[::2], stretched(xs, *popt_tau)[::2] / 2 + 0.5, color=tum_color(5))
+    plt.plot(xs, qff / 2 + 0.5, '.',
              label=r'corr., $T_\rho=\left( {:.1f} \pm {:.1f} \right) $ µs'.format(popt_qff[0],
-                                                                                        np.sqrt(pcov_qff[0, 0])),
+                                                                                  np.sqrt(pcov_qff[0, 0])),
              color=tum_color(0))
-    plt.plot(xs[::2], stretched(xs, *popt_qff)[::2], color=tum_color(0))
+    plt.plot(xs[::2], stretched(xs, *popt_qff)[::2] / 2 + 0.5, color=tum_color(0))
     plt.xlabel(r'$\int I \cdot \mathrm{d}t$' + ' (40 mA' + r'$\cdot $' + 'µs)')
-    plt.ylabel('amplitude (normalized)')
+    plt.ylabel(r'$1 - \left\langle S_z \right\rangle$')
     plt.legend()
     plt.tight_layout()
     plt.savefig('decays_comparison.jpg', dpi=300)
