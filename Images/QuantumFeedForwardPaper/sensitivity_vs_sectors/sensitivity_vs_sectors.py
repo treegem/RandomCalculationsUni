@@ -6,25 +6,37 @@ from utility.imperial_to_metric import cm_to_inch
 
 
 def sensitivity(n):
-    return np.sqrt(n) / np.sinc(1 / n)  # the sinc function automatically multiplies pi to the argument
+    return np.sqrt(n / 2) / np.sinc(1 / n)  # the sinc function automatically multiplies pi to the argument
 
 
 def create_and_save_plot():
     plt.figure(figsize=(cm_to_inch(1.0 * 8.6), cm_to_inch(7)))
-    plt.plot(ns_continuous, sensitivity(ns_continuous) / sensitivity(ns_continuous).min(), '--',
+    plt.plot(ns_continuous, sensitivity(ns_continuous), '--',
              color=tum_jet.tum_color(0))
-    plt.plot(ns_discrete, sensitivity(ns_discrete) / sensitivity(ns_continuous).min(), 'o', color=tum_jet.tum_color(0))
+    plt.plot(ns_discrete, sensitivity(ns_discrete), 'o', color=tum_jet.tum_color(0))
     plt.xlabel(r'$N_S$')
-    plt.ylabel(r'$\sigma_B$ (arb. u.)')
+    plt.ylabel(r'$\sigma_B / \sigma_{B,0}$')
     plt.tight_layout()
     plt.savefig('sensitivity_vs_sectors.png', dpi=500)
+
+
+def print_index_of_minimum():
+    min_index = ns_continuous[np.argmin(sensitivity(ns_continuous))]
+    print('minimum at N =', min_index)
+
+
+def print_time_increase():
+    best_sensitivity = sensitivity(2)
+    print('best case (N=2,4):', best_sensitivity)
+    time_increase = np.power(best_sensitivity, 2)
+    print('time increase:', time_increase)
 
 
 if __name__ == '__main__':
     ns_continuous = np.linspace(1.8, 8.2, 150)
     ns_discrete = np.arange(2, 8.1, 2)
 
-    min_index = sensitivity(np.argmin(sensitivity(ns_continuous))) / sensitivity(ns_continuous).min()
-    print(min_index)
+    print_index_of_minimum()
+    print_time_increase()
 
     create_and_save_plot()
