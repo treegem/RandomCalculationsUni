@@ -59,7 +59,6 @@ def main():
     ax1.set_xlabel(r'$\int I \cdot \mathrm{d}t$' + r' (3.5 mA$\cdot \mu$s)')
     ax1.legend(loc='lower right')
 
-    # ax2 = ax1.twinx()
     fast_start = None
     fast_stop = None
     fast_color = tum_color(0)
