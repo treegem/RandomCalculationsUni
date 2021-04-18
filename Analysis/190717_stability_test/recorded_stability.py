@@ -5,7 +5,7 @@ import numpy as np
 
 
 def main():
-    base_path = '//file/e24/Projects/ReinhardLab/data_setup_nv1/190717_pc_phase_oscillation_90mA_stability_test'
+    base_path = '//nas.ads.mwn.de/TUZE/wsi/e24/ReinhardLab/data_setup_nv1/190717_pc_phase_oscillation_90mA_stability_test'
     stability_check(base_path, '200e3_sweeps')
     stability_check(base_path, '500e3_sweeps')
 

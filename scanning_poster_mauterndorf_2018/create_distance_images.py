@@ -2,7 +2,7 @@ import scanning_poster_mauterndorf_2018.loading_data as ld
 
 
 def main():
-    data_path = '//file/e24/Projects/ReinhardLab/group_members/Stefan Ernst/Posters/Mauterndorf Poster/For Mauterndorf/' \
+    data_path = '//nas.ads.mwn.de/TUZE/wsi/e24/ReinhardLab/group_members/Stefan Ernst/Posters/Mauterndorf Poster/For Mauterndorf/' \
                 'DistanceExpData'
     id_str = '143'
 

@@ -16,9 +16,9 @@ def tum_color(index):
 
 
 def main():
-    slow_oscillation_path = '//file/e24/Projects/ReinhardLab/data_setup_nv1/181029_d36_current_echo_First/' \
+    slow_oscillation_path = '//nas.ads.mwn.de/TUZE/wsi/e24/ReinhardLab/data_setup_nv1/181029_d36_current_echo_First/' \
                             '002_current_echo'
-    fast_oscillation_path = '//file/e24/Projects/ReinhardLab/data_setup_nv1/181220_036_phase_oscillation_deer/' \
+    fast_oscillation_path = '//nas.ads.mwn.de/TUZE/wsi/e24/ReinhardLab/data_setup_nv1/181220_036_phase_oscillation_deer/' \
                             '002_phase_oscillation_63mA'
 
     slow_bins, slow_zs = load_measurement(slow_oscillation_path)

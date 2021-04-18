@@ -12,7 +12,7 @@ import random
 
 # get all files ending with txt info 'files'
 files = []
-directory = '//file/e24/Projects/ReinhardLab/Georg/Documentation/170612_4_images_paper/AFM/'
+directory = '//nas.ads.mwn.de/TUZE/wsi/e24/ReinhardLab/Georg/Documentation/170612_4_images_paper/AFM/'
 for file in glob.glob(directory + "*.txt"):
     if file[0] != 'n':
         files.append(file.split('.')[0])

@@ -7,7 +7,7 @@ import scipy.io as sio
 
 def main():
     folders = ['25000_30000_2']
-    base_path = '//file/e24/Projects/ReinhardLab/data_setup_nv1/190715_pc_phase_oscillation_decay'
+    base_path = '//nas.ads.mwn.de/TUZE/wsi/e24/ReinhardLab/data_setup_nv1/190715_pc_phase_oscillation_decay'
 
     for folder in folders:
 

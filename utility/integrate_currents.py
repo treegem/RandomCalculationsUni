@@ -19,5 +19,5 @@ def integrate_current(fname, sweeps, samples_per_sweep, outname):
 
 if __name__ == '__main__':
     integrate_current(
-        '//file/e24/Projects/ReinhardLab/data_setup_nv1/190520_sample_N/analogue_027/analogue_data_ch1.txt', 4, 500,
+        '//nas.ads.mwn.de/TUZE/wsi/e24/ReinhardLab/data_setup_nv1/190520_sample_N/analogue_027/analogue_data_ch1.txt', 4, 500,
         'test.txt')

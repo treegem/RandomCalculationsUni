@@ -4,7 +4,7 @@ from utility.deer_2d_plots import *
 
 
 def main():
-    path_res = '//file/e24/Projects/ReinhardLab/data_setup_nv1/180524_d35_deer_xy8/' \
+    path_res = '//nas.ads.mwn.de/TUZE/wsi/e24/ReinhardLab/data_setup_nv1/180524_d35_deer_xy8/' \
                '009_xy8_decay_180mhz'
     names_res = relevant_filenames(name='mes_{:03}.mat', ind_min=0, ind_max=0)
     res_differences = get_differences(names_res, path_res)[0]
@@ -14,7 +14,7 @@ def main():
     plt.xlabel('tau in sequence (ns)')
     plt.savefig('010_deer_decay_res.png', dpi=300)
 
-    path_nonres = '//file/e24/Projects/ReinhardLab/data_setup_nv1/180524_d35_deer_xy8/' \
+    path_nonres = '//nas.ads.mwn.de/TUZE/wsi/e24/ReinhardLab/data_setup_nv1/180524_d35_deer_xy8/' \
                   '008_xy8_decay_74mhz'
     names_nonres = relevant_filenames(name='mes_{:03}.mat', ind_min=0, ind_max=0)
     nonres_differences = get_differences(names_nonres, path_nonres)[0]

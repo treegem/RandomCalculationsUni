@@ -5,7 +5,7 @@ from utility import tum_jet
 
 
 def main():
-    # current_file = '//file/e24/Projects/ReinhardLab/data_setup_nv1/190304_d06_gradient_sweeps_new_nv/' \
+    # current_file = '//nas.ads.mwn.de/TUZE/wsi/e24/ReinhardLab/data_setup_nv1/190304_d06_gradient_sweeps_new_nv/' \
     #                'current_pulses_001/analogue_data_ch1_0.txt'
     current_file = 'currents.txt'
     currents = np.loadtxt(current_file)[-4096:]

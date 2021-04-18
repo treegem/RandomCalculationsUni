@@ -4,11 +4,11 @@ from utility.deer_2d_plots import *
 
 
 def main():
-    pure_path = '//file/e24/Projects/ReinhardLab/data_setup_nv1/180511_deer_2d_plot_ramsey/deer_pure_ramsey_007'
+    pure_path = '//nas.ads.mwn.de/TUZE/wsi/e24/ReinhardLab/data_setup_nv1/180511_deer_2d_plot_ramsey/deer_pure_ramsey_007'
     pure_names = relevant_filenames(name='mes_{:03}.mat', ind_min=0, ind_max=9)
     pure_differences = get_differences(pure_names, pure_path)
 
-    pi_path = '//file/e24/Projects/ReinhardLab/data_setup_nv1/180511_deer_2d_plot_ramsey/deer_ramsey_with_pi_008'
+    pi_path = '//nas.ads.mwn.de/TUZE/wsi/e24/ReinhardLab/data_setup_nv1/180511_deer_2d_plot_ramsey/deer_ramsey_with_pi_008'
     pi_names = relevant_filenames(name='mes_{:03}.mat', ind_min=0, ind_max=9)
     pi_differences = get_differences(pi_names, pi_path)
 

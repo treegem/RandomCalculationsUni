@@ -6,7 +6,7 @@ import utility.mat_handling as mhand
 
 
 def main():
-    path = '//file/e24/Projects/ReinhardLab/data_setup_nv1/180704_hf_setup_deer_tests/005_deer_rabi_p1at1'
+    path = '//nas.ads.mwn.de/TUZE/wsi/e24/ReinhardLab/data_setup_nv1/180704_hf_setup_deer_tests/005_deer_rabi_p1at1'
     fname = 'mes_000.mat'
     full_path = os.path.join(path, fname)
     data = mhand.load_mat_file(full_path)

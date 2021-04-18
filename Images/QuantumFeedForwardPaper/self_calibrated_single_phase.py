@@ -16,7 +16,7 @@ def tum_color(index):
 
 
 def main():
-    path = '//file/e24/Projects/ReinhardLab/data_setup_nv1/181115_d36_current_echo_20mA/008_rand_curr_selfcalib_20mA'
+    path = '//nas.ads.mwn.de/TUZE/wsi/e24/ReinhardLab/data_setup_nv1/181115_d36_current_echo_20mA/008_rand_curr_selfcalib_20mA'
     taus = np.loadtxt(os.path.join(path, 'taus.txt'))
     zs = np.loadtxt(os.path.join(path, 'zs_mat.txt'))
     zs_x = zs[:, 0::2]
@@ -51,7 +51,7 @@ def zs_to_probability(random_data, offset):
 
 
 def calc_rabi_amplitude():
-    path_rabi = '//file/e24/Projects/ReinhardLab/data_setup_nv1/181105_d36_current_echo_60mA'
+    path_rabi = '//nas.ads.mwn.de/TUZE/wsi/e24/ReinhardLab/data_setup_nv1/181105_d36_current_echo_60mA'
     rabi_file = 'pulsed.005.mat'
     rabi_data = sio.loadmat(os.path.join(path_rabi, rabi_file))
     rabi_zs = rabi_data['zs'][0]

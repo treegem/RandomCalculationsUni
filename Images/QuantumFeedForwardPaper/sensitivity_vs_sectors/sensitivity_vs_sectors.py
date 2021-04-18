@@ -10,7 +10,7 @@ def sensitivity(n):
 
 
 def create_and_save_plot():
-    plt.figure(figsize=(cm_to_inch(1.0 * 8.6), cm_to_inch(7)))
+    plt.figure(figsize=(cm_to_inch(1.0 * 8.5), cm_to_inch(7)))
     plt.plot(ns_continuous, sensitivity(ns_continuous), '--',
              color=tum_jet.tum_color(0))
     plt.plot(ns_discrete, sensitivity(ns_discrete), 'o', color=tum_jet.tum_color(0))

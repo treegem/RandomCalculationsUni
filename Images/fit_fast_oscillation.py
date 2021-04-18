@@ -16,7 +16,7 @@ def easy_sin(t, A, f, C, phi, T):
 
 
 def main():
-    fast_oscillation_path = '//file/e24/Projects/ReinhardLab/data_setup_nv1/181220_036_phase_oscillation_deer/' \
+    fast_oscillation_path = '//nas.ads.mwn.de/TUZE/wsi/e24/ReinhardLab/data_setup_nv1/181220_036_phase_oscillation_deer/' \
                             '002_phase_oscillation_63mA'
     fast_bins, fast_zs = load_measurement(fast_oscillation_path)
     adjusted_fast_bins, adjusted_fast_bins = scale_bins_to_taus(fast_bins, fast_bins,

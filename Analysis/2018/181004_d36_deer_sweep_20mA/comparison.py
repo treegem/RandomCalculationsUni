@@ -9,11 +9,11 @@ import matplotlib.pyplot as plt
 
 
 def main():
-    path = '//file/e24/Projects/ReinhardLab/data_setup_nv1/181001_d36_osci_plus_deer_sweep/002_deer_sweep'
+    path = '//nas.ads.mwn.de/TUZE/wsi/e24/ReinhardLab/data_setup_nv1/181001_d36_osci_plus_deer_sweep/002_deer_sweep'
     last_sweep = os.path.join(path, 'last_sweep.txt')
     data_no_curr = np.loadtxt(last_sweep)
 
-    path = '//file/e24/Projects/ReinhardLab/data_setup_nv1/181004_d36_deer_sweep_20mA/001_deer_sweep_20mA'
+    path = '//nas.ads.mwn.de/TUZE/wsi/e24/ReinhardLab/data_setup_nv1/181004_d36_deer_sweep_20mA/001_deer_sweep_20mA'
     last_sweep = os.path.join(path, 'last_sweep.txt')
     data_with_curr = np.loadtxt(last_sweep)
 

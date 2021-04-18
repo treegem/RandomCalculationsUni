@@ -6,7 +6,7 @@ import scipy.io as sio
 
 
 def main():
-    base_path = '//file/e24/Projects/ReinhardLab/data_setup_nv1/190808_stability_40000_40200'
+    base_path = '//nas.ads.mwn.de/TUZE/wsi/e24/ReinhardLab/data_setup_nv1/190808_stability_40000_40200'
     stability_check(base_path, '004_40000_40200_stability')
 
 

@@ -9,7 +9,7 @@ def main():
     folders = ['0_pi2', '0_3pi2', '2500_pi2', '2500_3pi2', '5000_pi2', '5000_3pi2', '7500_pi2', '7500_3pi2',
                '10000_pi2', '10000_3pi2', '13000_pi2', '13000_3pi2', '16000_pi2', '16000_3pi2', '19000_pi2',
                '19000_3pi2', '24500_pi2', '24500_3pi2', '30000_pi2', '30000_3pi2']
-    base_path = '//file/e24/Projects/ReinhardLab/data_setup_nv1/190708_sample_N_phase_oscillation'
+    base_path = '//nas.ads.mwn.de/TUZE/wsi/e24/ReinhardLab/data_setup_nv1/190708_sample_N_phase_oscillation'
 
     for folder in folders:
 

@@ -10,7 +10,7 @@ if __name__ == '__main__':
 
     random.seed(40)
     arialfont = {'fontname': 'Arial'}
-    directory = '//file/e24/Projects/ReinhardLab/Georg/Documentation/170612_4_images_paper/Diamondscomparision/'
+    directory = '//nas.ads.mwn.de/TUZE/wsi/e24/ReinhardLab/Georg/Documentation/170612_4_images_paper/Diamondscomparision/'
     files = [directory + '020']
     t2s, avgs = extract_t2_and_average(files=files)
     xs = random_x_values()

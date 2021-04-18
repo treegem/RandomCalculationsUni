@@ -6,7 +6,7 @@ from scipy import signal
 
 
 def main():
-    base_path = '//file/e24/Projects/ReinhardLab/data_setup_nv1/190715_pc_phase_oscillation_decay'
+    base_path = '//nas.ads.mwn.de/TUZE/wsi/e24/ReinhardLab/data_setup_nv1/190715_pc_phase_oscillation_decay'
     folders = ['002_phase_oscillation_5_5000', '004_phase_oscillation_5000_15000', '15000_20000', '20000_25000',
                '25000_30000', '25000_30000_2']
     for folder in folders:

@@ -4,7 +4,7 @@ from utility.deer_2d_plots import *
 
 
 def main():
-    path = '//file/e24/Projects/ReinhardLab/data_setup_nv1/180523_d35_deer/' \
+    path = '//nas.ads.mwn.de/TUZE/wsi/e24/ReinhardLab/data_setup_nv1/180523_d35_deer/' \
            '005_deer_rabi'
     names = relevant_filenames(name='mes_{:03}.mat', ind_min=0, ind_max=0)
     pi_differences = get_differences(names, path)[0]

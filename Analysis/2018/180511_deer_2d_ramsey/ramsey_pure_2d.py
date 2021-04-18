@@ -4,7 +4,7 @@ from utility.deer_2d_plots import *
 
 
 def main():
-    path = '//file/e24/Projects/ReinhardLab/data_setup_nv1/180511_deer_2d_plot_ramsey/deer_pure_ramsey_007'
+    path = '//nas.ads.mwn.de/TUZE/wsi/e24/ReinhardLab/data_setup_nv1/180511_deer_2d_plot_ramsey/deer_pure_ramsey_007'
     names = relevant_filenames(name='mes_{:03}.mat', ind_min=0, ind_max=9)
     taus = get_taus(names, path)
     differences = get_differences(names, path)

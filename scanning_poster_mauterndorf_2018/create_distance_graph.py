@@ -8,7 +8,7 @@ from utility import tum_jet as tum
 
 
 def main():
-    dir_path = '//file/e24/Projects/ReinhardLab/group_members/Stefan Ernst/Posters/Mauterndorf Poster/' \
+    dir_path = '//nas.ads.mwn.de/TUZE/wsi/e24/ReinhardLab/group_members/Stefan Ernst/Posters/Mauterndorf Poster/' \
                'For Mauterndorf/DistanceExpData'
 
     positions_name = 'image_list143_positions_new_txt.txt'

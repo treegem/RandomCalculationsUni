@@ -15,7 +15,7 @@ def main():
     low_detuning, high_detuning, ts = compute_ramsey_graphs()
     create_ramsey_mes_plot(low_detuning, high_detuning, ts)
 
-    latex_image_path = '//file/e24/Projects/ReinhardLab/Georg/Abstracts Anträge/F-Praktikum/Latexnew/images'
+    latex_image_path = '//nas.ads.mwn.de/TUZE/wsi/e24/ReinhardLab/Georg/Abstracts Anträge/F-Praktikum/Latexnew/images'
     image1 = os.path.join(latex_image_path, 'ramsey_sequence.png')
     image2 = os.path.join(TEMP_PATH, 'figure.png')
     image_path_list = [image1, image2]

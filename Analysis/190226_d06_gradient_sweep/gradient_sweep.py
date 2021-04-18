@@ -6,7 +6,7 @@ from scipy.io import loadmat
 
 
 def main():
-    path = '//file/e24/Projects/ReinhardLab/data_setup_nv1/190226_d06_gradient_sweep'
+    path = '//nas.ads.mwn.de/TUZE/wsi/e24/ReinhardLab/data_setup_nv1/190226_d06_gradient_sweep'
     n_pulses = 100
     ch2_currents = np.zeros(n_pulses)
 

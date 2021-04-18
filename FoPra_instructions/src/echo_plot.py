@@ -16,7 +16,7 @@ def main():
     revival, decay, ts = compute_ramsey_graphs()
     create_ramsey_mes_plot(revival, decay, ts)
 
-    latex_image_path = '//file/e24/Projects/ReinhardLab/Georg/Abstracts Anträge/F-Praktikum/Latexnew/images'
+    latex_image_path = '//nas.ads.mwn.de/TUZE/wsi/e24/ReinhardLab/Georg/Abstracts Anträge/F-Praktikum/Latexnew/images'
     image1 = os.path.join(latex_image_path, 'hahn_sequence.png')
     image2 = os.path.join(TEMP_PATH, 'revival.png')
     image3 = os.path.join(TEMP_PATH, 'decay.png')

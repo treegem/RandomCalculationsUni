@@ -11,7 +11,7 @@ from scipy.io import loadmat
 from scipy.optimize import curve_fit
 import os
 
-path_0 = '//file/e24/Projects/ReinhardLab/Data/170331_020_echo_after_implant/echo_'
+path_0 = '//nas.ads.mwn.de/TUZE/wsi/e24/ReinhardLab/Data/170331_020_echo_after_implant/echo_'
 path_1 = '001'
 path = path_0+path_1 + '/'
 name = '020'

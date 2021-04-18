@@ -6,7 +6,7 @@ from scipy.io import loadmat
 
 
 def main():
-    path = '//file/e24/Projects/ReinhardLab/data_setup_nv1/190222_d06_phase_oscillation'
+    path = '//nas.ads.mwn.de/TUZE/wsi/e24/ReinhardLab/data_setup_nv1/190222_d06_phase_oscillation'
     pulsed_file = 'phase_oscillation_002/pulsed.029.mat'
     data = loadmat(os.path.join(path, pulsed_file))
     taus = data['taus'][0]

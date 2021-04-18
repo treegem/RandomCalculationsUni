@@ -4,7 +4,7 @@ import scanning_poster_mauterndorf_2018.loading_data as ld
 def main():
     id_str = '145'
     name = 'untilted'
-    data_path = '//file/e24/Projects/ReinhardLab/group_members/Stefan Ernst/Posters/Mauterndorf Poster/For Mauterndorf/' \
+    data_path = '//nas.ads.mwn.de/TUZE/wsi/e24/ReinhardLab/group_members/Stefan Ernst/Posters/Mauterndorf Poster/For Mauterndorf/' \
                 'TiltExpData'
 
     images = ld.load_image_list(data_path=data_path, id_str=id_str, number_of_images=10)

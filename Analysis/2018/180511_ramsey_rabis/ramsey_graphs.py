@@ -4,12 +4,12 @@ from utility.deer_2d_plots import *
 
 
 def main():
-    pure_path = '//file/e24/Projects/ReinhardLab/data_setup_nv1/180511_ramsey_correlations_rabi/' \
+    pure_path = '//nas.ads.mwn.de/TUZE/wsi/e24/ReinhardLab/data_setup_nv1/180511_ramsey_correlations_rabi/' \
                 '002_ramsey_correlation_tcorr_sweep'
     pure_names = relevant_filenames(name='mes_{:03}.mat', ind_min=0, ind_max=0)
     pure_differences = get_differences(pure_names, pure_path)[0]
 
-    pi_path = '//file/e24/Projects/ReinhardLab/data_setup_nv1/180511_ramsey_correlations_rabi/' \
+    pi_path = '//nas.ads.mwn.de/TUZE/wsi/e24/ReinhardLab/data_setup_nv1/180511_ramsey_correlations_rabi/' \
               '003_ramsey_correlation_tcorr_sweep'
     pi_names = relevant_filenames(name='mes_{:03}.mat', ind_min=0, ind_max=0)
     pi_differences = get_differences(pi_names, pi_path)[0]

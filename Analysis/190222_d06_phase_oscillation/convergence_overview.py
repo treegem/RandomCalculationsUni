@@ -6,7 +6,7 @@ from scipy.io import loadmat
 
 
 def main():
-    source_path = '//file/e24/Projects/ReinhardLab/data_setup_nv1/190222_d06_phase_oscillation/phase_oscillation_002'
+    source_path = '//nas.ads.mwn.de/TUZE/wsi/e24/ReinhardLab/data_setup_nv1/190222_d06_phase_oscillation/phase_oscillation_002'
     for i in range(30):
         pulsed_file = 'pulsed.{:03}.mat'.format(i)
         data = loadmat(os.path.join(source_path, pulsed_file))

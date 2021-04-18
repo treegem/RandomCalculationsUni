@@ -9,7 +9,7 @@ import utility.mat_handling as mhand
 
 
 def main():
-    path = '//file/e24/Projects/ReinhardLab/data_setup_nv1/180627_d35_isweep_gradient_nv_echo'
+    path = '//nas.ads.mwn.de/TUZE/wsi/e24/ReinhardLab/data_setup_nv1/180627_d35_isweep_gradient_nv_echo'
     name = 'windowed_echo_16mA.001.mat'
     full_path = os.path.join(path, name)
 

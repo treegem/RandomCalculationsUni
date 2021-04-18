@@ -7,11 +7,11 @@ import utility.mat_handling as mat
 
 
 def main():
-    pure_path = '//file/e24/Projects/ReinhardLab/data_setup_nv1/180508_deer_2d_plot/deer_2d_plot'
+    pure_path = '//nas.ads.mwn.de/TUZE/wsi/e24/ReinhardLab/data_setup_nv1/180508_deer_2d_plot/deer_2d_plot'
     pure_names = relevant_filenames(name='mes_{:03}.mat', ind_min=10, ind_max=19)
     pure_differences = get_differences(pure_names, pure_path)
 
-    pi_path = '//file/e24/Projects/ReinhardLab/data_setup_nv1/180508_deer_2d_plot/deer_2d_plot'
+    pi_path = '//nas.ads.mwn.de/TUZE/wsi/e24/ReinhardLab/data_setup_nv1/180508_deer_2d_plot/deer_2d_plot'
     pi_names = relevant_filenames(name='mes_{:03}.mat', ind_min=20, ind_max=29)
     pi_differences = get_differences(pi_names, pi_path)
 

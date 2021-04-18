@@ -9,7 +9,7 @@ from utility.integrate_currents import integrate_current
 
 
 def main():
-    path = '//file/e24/Projects/ReinhardLab/data_setup_nv1/190521_sample_N_90mA'
+    path = '//nas.ads.mwn.de/TUZE/wsi/e24/ReinhardLab/data_setup_nv1/190521_sample_N_90mA'
     fname = 'pulsed.011.mat'
     full_name = os.path.join(path, fname)
 
@@ -31,7 +31,7 @@ def main():
     if not os.path.isfile(current_file):
         print('Integrating current...')
         integrate_current(
-            fname='//file/e24/Projects/ReinhardLab/data_setup_nv1/190521_sample_N_90mA/analogue_011/analogue_data_ch1.txt',
+            fname='//nas.ads.mwn.de/TUZE/wsi/e24/ReinhardLab/data_setup_nv1/190521_sample_N_90mA/analogue_011/analogue_data_ch1.txt',
             sweeps=1,
             samples_per_sweep=len(taus),
             outname=current_file

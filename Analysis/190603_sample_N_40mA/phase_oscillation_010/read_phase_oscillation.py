@@ -6,7 +6,7 @@ import scipy.io as sio
 
 
 def main():
-    path = '//file/e24/Projects/ReinhardLab/data_setup_nv1/190603_sample_N_40mA/phase_oscillation_010'
+    path = '//nas.ads.mwn.de/TUZE/wsi/e24/ReinhardLab/data_setup_nv1/190603_sample_N_40mA/phase_oscillation_010'
 
     phase_zs = np.loadtxt(os.path.join(path, 'zs.txt'))
 

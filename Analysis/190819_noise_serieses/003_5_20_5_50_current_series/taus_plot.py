@@ -7,7 +7,7 @@ from utility.current_series_shared_functions import calc_vmin_vmax, plot_2d
 
 
 def main():
-    path = '//file/e24/Projects/ReinhardLab/data_setup_nv1/190819_noise_serieses/003_5.20_5.50_current_series'
+    path = '//nas.ads.mwn.de/TUZE/wsi/e24/ReinhardLab/data_setup_nv1/190819_noise_serieses/003_5.20_5.50_current_series'
     subfolders = os.listdir(path)
 
     zs_2d = None

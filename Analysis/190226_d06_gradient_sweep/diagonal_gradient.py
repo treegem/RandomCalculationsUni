@@ -6,7 +6,7 @@ from scipy.io import loadmat
 
 
 def main():
-    path = '//file/e24/Projects/ReinhardLab/data_setup_nv1/190226_d06_gradient_sweep'
+    path = '//nas.ads.mwn.de/TUZE/wsi/e24/ReinhardLab/data_setup_nv1/190226_d06_gradient_sweep'
     pulsed_file = '002_gradient_sweep/pulsed_000000.mat'
     data = loadmat(os.path.join(path, pulsed_file))
     taus = data['taus'][0]

@@ -11,7 +11,7 @@ def normalization_factor(no_curr, curr):
 
 
 def main():
-    path = '//file/e24/Projects/ReinhardLab/data_setup_nv1/190122_mw_structure_test'
+    path = '//nas.ads.mwn.de/TUZE/wsi/e24/ReinhardLab/data_setup_nv1/190122_mw_structure_test'
     no_current_files = ['odmr.007.mat', 'odmr.009.mat', 'odmr.011.mat']
     current_files = ['odmr.008.mat', 'odmr.010.mat', 'odmr.012.mat']
 

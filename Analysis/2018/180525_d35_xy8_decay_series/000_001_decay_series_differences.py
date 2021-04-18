@@ -4,9 +4,9 @@ from utility.deer_2d_plots import *
 
 
 def main():
-    path_res = '//file/e24/Projects/ReinhardLab/data_setup_nv1/180525_d35_xy8_decay_series/' \
+    path_res = '//nas.ads.mwn.de/TUZE/wsi/e24/ReinhardLab/data_setup_nv1/180525_d35_xy8_decay_series/' \
                '000_xy8_decay_series_res'
-    path_nonres = '//file/e24/Projects/ReinhardLab/data_setup_nv1/180525_d35_xy8_decay_series/' \
+    path_nonres = '//nas.ads.mwn.de/TUZE/wsi/e24/ReinhardLab/data_setup_nv1/180525_d35_xy8_decay_series/' \
                   '001_xy8_decay_series_nonres'
     index_res = 0
     index_nonres = 0

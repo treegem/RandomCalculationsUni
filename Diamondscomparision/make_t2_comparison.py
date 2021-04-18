@@ -19,7 +19,7 @@ def get_txt_files_without_oxidation():
     global files, file
     # get all files ending with txt info 'files'
     files = []
-    directory = '//file/e24/Projects/ReinhardLab/Georg/Documentation/170612_4_images_paper/Diamondscomparision/'
+    directory = '//nas.ads.mwn.de/TUZE/wsi/e24/ReinhardLab/Georg/Documentation/170612_4_images_paper/Diamondscomparision/'
     for file in glob.glob(directory + "*.txt"):
         if file[0] != 'n':
             files.append(file.split('.')[0])
@@ -130,7 +130,7 @@ def get_txt_files_with_oxidation():
     global nfiles, file
     # get all files ending with txt info 'files' after 520
     nfiles = []
-    directory = '//file/e24/Projects/ReinhardLab/Georg/Documentation/170612_4_images_paper/Diamondscomparision/'
+    directory = '//nas.ads.mwn.de/TUZE/wsi/e24/ReinhardLab/Georg/Documentation/170612_4_images_paper/Diamondscomparision/'
     for file in glob.glob(directory + "*.txt"):
         file_name = os.path.split(file)[-1]
         if file_name[0] == 'n':

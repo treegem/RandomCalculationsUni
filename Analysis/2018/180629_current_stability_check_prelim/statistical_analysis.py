@@ -4,7 +4,7 @@ import utility.ds4034_utility as ds
 
 
 def main():
-    path = '//file/e24/Projects/ReinhardLab/data_setup_nv1/180629_current_stability_check_prelim/current_pulses'
+    path = '//nas.ads.mwn.de/TUZE/wsi/e24/ReinhardLab/data_setup_nv1/180629_current_stability_check_prelim/current_pulses'
     traces = np.loadtxt('traces.txt')
     avg = np.average(traces, axis=0)
     ts = get_taus(path)

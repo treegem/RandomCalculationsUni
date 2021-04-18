@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 
 
 def main():
-    path = '//file/e24/Projects/ReinhardLab/data_setup_nv1/190819_noise_serieses/003_5.20_5.50_current_series'
+    path = '//nas.ads.mwn.de/TUZE/wsi/e24/ReinhardLab/data_setup_nv1/190819_noise_serieses/003_5.20_5.50_current_series'
     subfolders = os.listdir(path)
 
     recorded_bins = np.zeros(len(subfolders))

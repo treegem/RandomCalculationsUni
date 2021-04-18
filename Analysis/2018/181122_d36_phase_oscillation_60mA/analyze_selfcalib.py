@@ -3,7 +3,7 @@ import numpy as np
 
 
 def main():
-    dir = '//file/e24/Projects/ReinhardLab/data_setup_nv1/181122_d36_phase_oscillation_60mA/007_selfcalibrated_60mA_50LP'
+    dir = '//nas.ads.mwn.de/TUZE/wsi/e24/ReinhardLab/data_setup_nv1/181122_d36_phase_oscillation_60mA/007_selfcalibrated_60mA_50LP'
     zs = np.loadtxt(os.path.join(dir, 'zs_mat.txt'))
     zs_x = zs[:, 0::2]
     zs_y = zs[:, 1::2]

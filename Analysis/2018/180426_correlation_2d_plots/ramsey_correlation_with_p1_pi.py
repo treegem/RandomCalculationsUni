@@ -7,7 +7,7 @@ import utility.mat_handling as mat
 
 
 def main():
-    path = '//file/e24/Projects/ReinhardLab/data_setup_nv1/180426_D17_deer_correlation_debugging/mes_series_004'
+    path = '//nas.ads.mwn.de/TUZE/wsi/e24/ReinhardLab/data_setup_nv1/180426_D17_deer_correlation_debugging/mes_series_004'
     names = relevant_filenames(name='mes_{:03}.mat', ind_min=20, ind_max=29)
     taus = get_taus(names, path)
     differences = get_differences(names, path)

@@ -24,8 +24,8 @@ def mirror_y_graphs(estimated_middle, yminus, yplus):
 
 
 def main():
-    path_random = '//file/e24/Projects/ReinhardLab/data_setup_nv1/181029_d36_current_echo_First/007_random_current_echo'
-    path_pure = '//file/e24/Projects/ReinhardLab/data_setup_nv1/181029_d36_current_echo_First/008_pure_echo'
+    path_random = '//nas.ads.mwn.de/TUZE/wsi/e24/ReinhardLab/data_setup_nv1/181029_d36_current_echo_First/007_random_current_echo'
+    path_pure = '//nas.ads.mwn.de/TUZE/wsi/e24/ReinhardLab/data_setup_nv1/181029_d36_current_echo_First/008_pure_echo'
 
     random_data = np.loadtxt(os.path.join(path_random, 'zs_post_selected.txt'))
     regular_data = np.loadtxt(os.path.join(path_random, 'zs_regular.txt'))

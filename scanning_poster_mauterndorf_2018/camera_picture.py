@@ -1,7 +1,7 @@
 import numpy as np
 import os
 import scanning_poster_mauterndorf_2018.loading_data as ld
-dir = '//file/e24/Projects/ReinhardLab/group_members/Stefan Ernst/Posters/Mauterndorf Poster/For Mauterndorf/' \
+dir = '//nas.ads.mwn.de/TUZE/wsi/e24/ReinhardLab/group_members/Stefan Ernst/Posters/Mauterndorf Poster/For Mauterndorf/' \
                 'DistanceExpData'
 
 file_name = 'SiO2_image_data_contact_fullscreen_66ms_0.gz'

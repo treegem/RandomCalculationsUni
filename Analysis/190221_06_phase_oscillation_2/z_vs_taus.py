@@ -6,7 +6,7 @@ from scipy.io import loadmat
 
 
 def main():
-    path = '//file/e24/Projects/ReinhardLab/data_setup_nv1/190221_d06_phase_oscillation_2/phase_oscillation_001'
+    path = '//nas.ads.mwn.de/TUZE/wsi/e24/ReinhardLab/data_setup_nv1/190221_d06_phase_oscillation_2/phase_oscillation_001'
     start_index = 0
     end_index = 2264
 

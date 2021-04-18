@@ -7,7 +7,7 @@ import utility.mat_handling as mhand
 
 
 def main():
-    path = '//file/e24/Projects/ReinhardLab/data_setup_nv1/180625_d35_gradient_nv_echo'
+    path = '//nas.ads.mwn.de/TUZE/wsi/e24/ReinhardLab/data_setup_nv1/180625_d35_gradient_nv_echo'
     filename = '8ma_450ns.002.mat'
     full_path = os.path.join(path, filename)
     data = mhand.load_mat_file(full_path)

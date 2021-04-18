@@ -6,7 +6,7 @@ from scipy.io import loadmat
 
 
 def main():
-    path = '//file/e24/Projects/ReinhardLab/data_setup_nv1/190304_d06_gradient_sweeps_new_nv'
+    path = '//nas.ads.mwn.de/TUZE/wsi/e24/ReinhardLab/data_setup_nv1/190304_d06_gradient_sweeps_new_nv'
     n_taus = 250
     n_files = 19
     zs_2d = np.zeros((n_files, n_taus))

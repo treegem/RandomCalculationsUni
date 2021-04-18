@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 
 
 def main():
-    path = '//file/e24/Projects/ReinhardLab/data_setup_nv1/181004_d36_deer_sweep_20mA/001_deer_sweep_20mA'
+    path = '//nas.ads.mwn.de/TUZE/wsi/e24/ReinhardLab/data_setup_nv1/181004_d36_deer_sweep_20mA/001_deer_sweep_20mA'
     last_sweep = os.path.join(path, 'last_sweep.txt')
     data = np.loadtxt(last_sweep)
     fig = plt.figure()

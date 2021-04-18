@@ -9,7 +9,7 @@ import utility.tum_jet as tum_jet
 
 
 def main():
-    dir = '//file/e24/Projects/ReinhardLab/data_setup_nv1/181130_31D_hires_stitching'
+    dir = '//nas.ads.mwn.de/TUZE/wsi/e24/ReinhardLab/data_setup_nv1/181130_31D_hires_stitching'
 
     ll = read_scan_file(dir, 'scan.000.mat')
     lr = read_scan_file(dir, 'scan.001.mat')

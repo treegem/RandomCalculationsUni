@@ -5,7 +5,7 @@ import numpy as np
 
 
 def main():
-    path = '//file/e24/Projects/ReinhardLab/data_setup_nv1/181115_d36_current_echo_20mA/008_rand_curr_selfcalib_20mA'
+    path = '//nas.ads.mwn.de/TUZE/wsi/e24/ReinhardLab/data_setup_nv1/181115_d36_current_echo_20mA/008_rand_curr_selfcalib_20mA'
     zs = np.loadtxt(os.path.join(path, 'zs_mat.txt'))
     zs_x = zs[:, 0::2]
     offset_x = calculate_offset(zs_x)

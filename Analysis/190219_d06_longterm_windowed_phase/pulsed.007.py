@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 
 
 def main():
-    path = '//file/e24/Projects/ReinhardLab/data_setup_nv1/190219_d06_longterm_windowed_phase'
+    path = '//nas.ads.mwn.de/TUZE/wsi/e24/ReinhardLab/data_setup_nv1/190219_d06_longterm_windowed_phase'
     file_name = 'pulsed.007.mat'
     data = sio.loadmat(os.path.join(path, file_name))
     zs = data['zs'][0]

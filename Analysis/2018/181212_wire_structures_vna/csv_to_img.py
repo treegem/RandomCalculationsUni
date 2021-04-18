@@ -5,7 +5,7 @@ import numpy as np
 
 
 def main():
-    path = '//file/e24/Projects/ReinhardLab/group_members/Georg/Documentation/18121_wire_structures'
+    path = '//nas.ads.mwn.de/TUZE/wsi/e24/ReinhardLab/group_members/Georg/Documentation/18121_wire_structures'
     file_names = os.listdir(path)
     for f_name in file_names:
         f_path = os.path.join(path, f_name)

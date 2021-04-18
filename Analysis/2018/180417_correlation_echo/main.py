@@ -33,6 +33,6 @@ def calculate_frequency_spacings(data):
 
 
 if __name__ == '__main__':
-    path_ = '//file/e24/Projects/ReinhardLab/data_setup_nv1/180417_D17_deer_correlation_echo/deer_022'
+    path_ = '//nas.ads.mwn.de/TUZE/wsi/e24/ReinhardLab/data_setup_nv1/180417_D17_deer_correlation_echo/deer_022'
     name_ = 'last_sweep.txt'
     main(path_, name_)

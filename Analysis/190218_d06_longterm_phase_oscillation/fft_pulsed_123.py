@@ -6,7 +6,7 @@ import numpy.fft as fft
 
 
 def main():
-    path = '//file/e24/Projects/ReinhardLab/data_setup_nv1/190218_d06_longterm_phase_oscillation'
+    path = '//nas.ads.mwn.de/TUZE/wsi/e24/ReinhardLab/data_setup_nv1/190218_d06_longterm_phase_oscillation'
     index = 123
     file = 'pulsed.{}.mat'.format(index)
     taus, zs = load_data(file, path)

@@ -11,7 +11,7 @@ import matplotlib.pylab as pylab
 import tum_jet_blue_red as tum
 
 
-path = '//file/e24/Projects/ReinhardLab/Data/170316_echoes_proem_03C/echo_004/'
+path = '//nas.ads.mwn.de/TUZE/wsi/e24/ReinhardLab/Data/170316_echoes_proem_03C/echo_004/'
 
 mes_obj = sio.loadmat(path + 'mes_pulsed.mat')
 

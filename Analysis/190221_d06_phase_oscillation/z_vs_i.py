@@ -14,7 +14,7 @@ def bins_to_avg(bins):
 
 
 def main():
-    path = '//file/e24/Projects/ReinhardLab/data_setup_nv1/190221_d06_phase_oscillation/phase_oscillation_02'
+    path = '//nas.ads.mwn.de/TUZE/wsi/e24/ReinhardLab/data_setup_nv1/190221_d06_phase_oscillation/phase_oscillation_02'
 
     bins = np.loadtxt(os.path.join(path, 'bins.txt'))
     i_bins = bins_to_avg(bins)

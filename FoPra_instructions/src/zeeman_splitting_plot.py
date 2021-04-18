@@ -26,7 +26,7 @@ def main():
     plot_energy_shift(b, sminus, splus)
     format_plot(x0, x1, y0, y1)
 
-    save_figure(path='//file/e24/Projects/ReinhardLab/Georg/Abstracts Anträge/'
+    save_figure(path='//nas.ads.mwn.de/TUZE/wsi/e24/ReinhardLab/Georg/Abstracts Anträge/'
                      'F-Praktikum/Latexnew/images/zeeman_splitting.png')
 
 

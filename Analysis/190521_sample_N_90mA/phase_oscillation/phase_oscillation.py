@@ -5,7 +5,7 @@ import numpy as np
 
 
 def main():
-    path = '//file/e24/Projects/ReinhardLab/data_setup_nv1/190521_sample_N_90mA/phase_oscillation_001'
+    path = '//nas.ads.mwn.de/TUZE/wsi/e24/ReinhardLab/data_setup_nv1/190521_sample_N_90mA/phase_oscillation_001'
     zs = np.loadtxt(os.path.join(path, 'zs.txt'))
 
     start_index = 6

@@ -7,7 +7,7 @@ import utility.mat_handling as mhand
 
 
 def main():
-    path = '//file/e24/Projects/ReinhardLab/data_setup_nv1/180913_d36_deer_corr_hahn/001_deer_corr_hahn'
+    path = '//nas.ads.mwn.de/TUZE/wsi/e24/ReinhardLab/data_setup_nv1/180913_d36_deer_corr_hahn/001_deer_corr_hahn'
     filename = 'mes_000.mat'
     full_path = os.path.join(path, filename)
     data = mhand.load_mat_file(full_path)

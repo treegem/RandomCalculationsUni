@@ -4,7 +4,7 @@ from utility.deer_2d_plots import *
 
 
 def main():
-    pure_path = '//file/e24/Projects/ReinhardLab/data_setup_nv1/180612_d35_deer_corr_2d/001_deer_corr_2d'
+    pure_path = '//nas.ads.mwn.de/TUZE/wsi/e24/ReinhardLab/data_setup_nv1/180612_d35_deer_corr_2d/001_deer_corr_2d'
     pure_names = relevant_filenames(name='mes_{:03}.mat', ind_min=10, ind_max=19)
     pure_differences = get_differences(pure_names, pure_path)
     taus = get_taus(pure_names, pure_path)
@@ -16,7 +16,7 @@ def main():
     plt.colorbar()
     plt.savefig('ramsey_correlation_pure.png', dpi=300)
 
-    pi_path = '//file/e24/Projects/ReinhardLab/data_setup_nv1/180612_d35_deer_corr_2d/001_deer_corr_2d'
+    pi_path = '//nas.ads.mwn.de/TUZE/wsi/e24/ReinhardLab/data_setup_nv1/180612_d35_deer_corr_2d/001_deer_corr_2d'
     pi_names = relevant_filenames(name='mes_{:03}.mat', ind_min=0, ind_max=9)
     pi_differences = get_differences(pi_names, pi_path)
     plt.close('all')

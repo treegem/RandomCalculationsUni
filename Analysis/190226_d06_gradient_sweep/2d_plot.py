@@ -6,7 +6,7 @@ from scipy.io import loadmat
 
 
 def main():
-    source_path = '//file/e24/Projects/ReinhardLab/data_setup_nv1/190226_d06_gradient_sweep/002_gradient_sweep'
+    source_path = '//nas.ads.mwn.de/TUZE/wsi/e24/ReinhardLab/data_setup_nv1/190226_d06_gradient_sweep/002_gradient_sweep'
     n_pulses = 100
     n_files = 100
     final_matrix_zs = np.zeros((n_files, n_pulses))

@@ -8,7 +8,7 @@ from utility.ds4034_utility import filter_relevant_files, sampling_times, scale_
 
 def main():
     global ts
-    path = '//file/e24/Projects/ReinhardLab/data_setup_nv1/180629_current_stability_check_prelim/current_pulses'
+    path = '//nas.ads.mwn.de/TUZE/wsi/e24/ReinhardLab/data_setup_nv1/180629_current_stability_check_prelim/current_pulses'
     offset = -0.4  # Volts
     full_points = 2 ** 8  # 8 bit oscilloscope
 

@@ -4,7 +4,7 @@ from utility.deer_2d_plots import *
 
 
 def main():
-    pi_path = '//file/e24/Projects/ReinhardLab/data_setup_nv1/180514_deer_correlation/004_deercorr_2d_plot_pi_no_pi'
+    pi_path = '//nas.ads.mwn.de/TUZE/wsi/e24/ReinhardLab/data_setup_nv1/180514_deer_correlation/004_deercorr_2d_plot_pi_no_pi'
     pi_names = relevant_filenames(name='mes_{:03}.mat', ind_min=0, ind_max=19)
     pi_differences = get_differences(pi_names, pi_path)
     taus = get_taus(pi_names, pi_path)
@@ -15,7 +15,7 @@ def main():
     plt.colorbar()
     plt.savefig('004_pi_differences.png', dpi=300)
 
-    pure_path = '//file/e24/Projects/ReinhardLab/data_setup_nv1/180514_deer_correlation/004_deercorr_2d_plot_pi_no_pi'
+    pure_path = '//nas.ads.mwn.de/TUZE/wsi/e24/ReinhardLab/data_setup_nv1/180514_deer_correlation/004_deercorr_2d_plot_pi_no_pi'
     pure_names = relevant_filenames(name='mes_{:03}.mat', ind_min=20, ind_max=39)
     pure_differences = get_differences(pure_names, pure_path)
     plt.close('all')

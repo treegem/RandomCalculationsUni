@@ -7,7 +7,7 @@ import scipy.io as sio
 
 def main():
     folders = ['50_250_0', '2000_2200_0', '4000_4200_0', '6000_6200_0', '8000_8200_0', '10000_10200_0']
-    base_path = '//file/e24/Projects/ReinhardLab/data_setup_nv1/190814_artificial_noise_50_10000/000_artificial_noise'
+    base_path = '//nas.ads.mwn.de/TUZE/wsi/e24/ReinhardLab/data_setup_nv1/190814_artificial_noise_50_10000/000_artificial_noise'
 
     for folder in folders:
 
