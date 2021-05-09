@@ -16,10 +16,10 @@ def tum_color(index):
 
 
 def main():
-    slow_oscillation_path = '//nas.ads.mwn.de/TUZE/wsi/e24/ReinhardLab/data_setup_nv1/181029_d36_current_echo_First/' \
-                            '002_current_echo'
-    fast_oscillation_path = '//nas.ads.mwn.de/TUZE/wsi/e24/ReinhardLab/data_setup_nv1/181220_036_phase_oscillation_deer/' \
-                            '002_phase_oscillation_63mA'
+    slow_oscillation_path = '//filelrz.wsi.tum.de/tuze/wsi/e24/ReinhardLab/data_setup_nv1/' \
+                            '181029_d36_current_echo_First/002_current_echo'
+    fast_oscillation_path = '//filelrz.wsi.tum.de/tuze/wsi/e24/ReinhardLab/data_setup_nv1/' \
+                            '181220_036_phase_oscillation_deer/002_phase_oscillation_63mA'
 
     slow_bins, slow_zs = load_measurement(slow_oscillation_path)
     fast_bins, fast_zs = load_measurement(fast_oscillation_path)
@@ -56,7 +56,7 @@ def main():
              label='3.5 mA')
     ax1.set_ylim(0.25, 0.7)
     ax1.set_ylabel(r'$\left\langle S_z \right\rangle$')
-    ax1.set_xlabel(r'$\int I \cdot \mathrm{d}t$' + r' (3.5 mA$\cdot \mu$s)')
+    ax1.set_xlabel(r'$\int_0^{T_\mathrm{I}} I \cdot \mathrm{d}t$' + r' (3.5 mA$\cdot \mu$s)')
     ax1.legend(loc='lower right')
 
     fast_start = None
@@ -67,7 +67,7 @@ def main():
     ax2.tick_params('y')
     ax2.set_ylim(0.28, 0.7)
     ax2.set_ylabel(r'$\left\langle S_z \right\rangle$')
-    ax2.set_xlabel(r'$\int I \cdot \mathrm{d}t$' + r' (60 mA$\cdot \mu$s)')
+    ax2.set_xlabel(r'$\int_0^{T_\mathrm{I}} I \cdot \mathrm{d}t$' + r' (60 mA$\cdot \mu$s)')
     ax2.legend(loc='lower right')
     fig.tight_layout()
     plt.savefig('phase_oscillation.png', dpi=300)
